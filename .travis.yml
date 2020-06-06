@@ -1,13 +1,28 @@
 ---
-sudo: required
-os: osx
-osx_image:
-- xcode11.5
-- xcode11.4
+language: python
+jobs:
+  include:
+    # - os: linux
+    #   distro:
+    #   arc:
+    #     - amd64
+    #     # - ppc64le
+    #     # - s390x
+    #     - arm64
+    - os: osx
+      language: shell
+      osx_image:
+      - xcode11.5
+      - xcode11.4
+      addons:
+        homebrew:
+          casks:
+            - mactex
+          packages:
+            - multipass
 env:
   global:
   - VAGRANT_CURRENT_VERSION="$(curl -s https://checkpoint-api.hashicorp.com/v1/check/vagrant | jq -r -M '.current_version')"
-
 
 notifications:
   slack:
@@ -20,39 +35,51 @@ fleet_install_tasks : &fleet_install_tasks
       install:
         - pip install -r requirements.txt
 
+before_install:
+  - pip install virtualenv
+  - virtualenv -p $(which python2) ~venvpy2
+  - source ~venvpy2/bin/activate
+<<: *fleet_install_tasks
+<<: *fleet_script_tasks
 
-matrix:
-  fast_finish: true
-  include:
+script:
+  - brew list --versions
 
+after_success:
+  - deactivate
 
-#   # =============================================macOS=============================================
+# matrix:
+#   fast_finish: true
+#   include:
+#
+#
+# #   # =============================================macOS=============================================
 
-    - name: "microk8s Python 2.7.17 on macOS 10.14.6osx xcode11.3"
-      os: osx
-      osx_image: xcode11.5
-      # osx_image: # not working
-      #   - xcode11.5
-      #   - xcode11.4
-      language: shell
-      addons:
-        homebrew:
-          taps: homebrew/cask-versions #Installing From Taps
-          casks: java8
-      # addons:
-      #   homebrew:
-      #     casks:
-      #       - mactex
-      #     packages:
-      #       - multipass
-      before_install:
-        - pip install virtualenv
-        - virtualenv -p $(which python2) ~venvpy2
-        - source ~venvpy2/bin/activate
-      <<: *fleet_install_tasks
-      <<: *fleet_script_tasks
-      # <<: *fleet_script_microk8s_macos_tasks
-      script:
-        - brew list --versions
-      after_success:
-        - deactivate
+    # - name: "microk8s Python 2.7.17 on macOS 10.14.6osx xcode11.3"
+    #   # os: osx
+    #   # osx_image: xcode11.5
+    #   # osx_image: # not working
+    #   #   - xcode11.5
+    #   #   - xcode11.4
+    #   language: shell
+    #   # addons:
+    #   #   homebrew:
+    #   #     taps: homebrew/cask-versions #Installing From Taps
+    #   #     casks: java8
+    #   addons:
+    #     homebrew:
+    #       casks:
+    #         - mactex
+    #       packages:
+    #         - multipass
+    #   before_install:
+    #     - pip install virtualenv
+    #     - virtualenv -p $(which python2) ~venvpy2
+    #     - source ~venvpy2/bin/activate
+    #   <<: *fleet_install_tasks
+    #   <<: *fleet_script_tasks
+    #   # <<: *fleet_script_microk8s_macos_tasks
+    #   script:
+    #     - brew list --versions
+    #   after_success:
+    #     - deactivate
