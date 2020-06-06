@@ -2,7 +2,7 @@ language: c
 os:
   - linux
   - osx
-
+  - windows #"Python 3.7 on Windows"
 compiler:
   - gcc
   - clang
@@ -12,9 +12,38 @@ addons:
     packages:
       - graphviz
 
+fleet_script_tasks : &fleet_script_tasks
+      script:
+        - python --version
+fleet_install_tasks : &fleet_install_tasks
+      install:
+        - pip install -r requirements.txt
+
 before_install:
-  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew update          ; fi
-  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew install graphviz; fi
+  # - if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew update          ; fi
+  - |
+    if [ "$TRAVIS_OS_NAME" = "osx" ];
+    pip3 install virtualenv;
+    virtualenv -p $(which python3) ~venvpy3;
+    source ~venvpy3/bin/activate;
+    fi
+  - |
+    if [ "$TRAVIS_OS_NAME" = "osx" ]; then
+    brew update;
+    pip install virtualenv;
+    virtualenv -p $(which python2) ~venvpy2;
+    source ~venvpy2/bin/activate;
+    fi
+  - |
+    if [ "$TRAVIS_OS_NAME" = "windows" ]; then
+    PATH=/c/Python37:/c/Python37/Scripts:$PATH
+    choco install python --version 3.7.3;
+    python -m pip install virtualenv;
+    virtualenv $HOME/venv;
+    source $HOME/venv/Scripts/activate;
+    fi
+<<: *fleet_install_tasks
+<<: *fleet_script_tasks
 
 script:
   - echo $(pwd)
