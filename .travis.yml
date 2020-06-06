@@ -14,12 +14,12 @@ jobs:
       osx_image:
       - xcode11.5
       - xcode11.4
-      addons:
-        homebrew:
-          casks:
-            - mactex
-          packages:
-            - multipass
+      # addons:
+      #   homebrew:
+      #     casks:
+      #       - mactex
+      #     packages:
+      #       - multipass
 env:
   global:
   - VAGRANT_CURRENT_VERSION="$(curl -s https://checkpoint-api.hashicorp.com/v1/check/vagrant | jq -r -M '.current_version')"
