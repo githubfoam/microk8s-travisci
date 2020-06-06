@@ -19,7 +19,6 @@ fleet_install_tasks : &fleet_install_tasks
         - pip install -r requirements.txt
 
 before_install:
-  # - if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew update          ; fi
   - | # Python 3.7
     if [ "$TRAVIS_OS_NAME" = "linux" ]; then
     pip3 install virtualenv
