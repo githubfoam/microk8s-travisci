@@ -31,13 +31,13 @@ osx_image:
 #       #       - mactex
 #       #     packages:
 #       #       - multipass
-env:
-  global:
-  - VAGRANT_CURRENT_VERSION="$(curl -s https://checkpoint-api.hashicorp.com/v1/check/vagrant | jq -r -M '.current_version')"
-
-notifications:
-  slack:
-    on_failure: always
+# env:
+#   global:
+#   - VAGRANT_CURRENT_VERSION="$(curl -s https://checkpoint-api.hashicorp.com/v1/check/vagrant | jq -r -M '.current_version')"
+#
+# notifications:
+#   slack:
+#     on_failure: always
 
 # fleet_script_tasks : &fleet_script_tasks
 #       script:
@@ -55,9 +55,10 @@ notifications:
 
 script:
   - brew list --versions
+  - echo "test"
 
-after_success:
-  - deactivate
+# after_success:
+#   - deactivate
 
 # matrix:
 #   fast_finish: true
