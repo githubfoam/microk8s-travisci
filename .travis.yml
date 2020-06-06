@@ -1,6 +1,8 @@
 language: c
 os:
   - linux
+distro:
+  - bionic  
   - osx
   - windows #"Python 3.7 on Windows"
 compiler:
