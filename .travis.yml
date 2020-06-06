@@ -5,7 +5,14 @@ os:
 osx_image:
   - xcode11.5
   - xcode11.4
-
+  - xcode11.3
+  - xcode11.2
+  - xcode11.1
+  - xcode11
+  - xcode10
+  - xcode9.4
+  - xcode9
+  - xcode8
 addons:
  homebrew:
   casks:
