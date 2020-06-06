@@ -39,19 +39,19 @@ notifications:
   slack:
     on_failure: always
 
-fleet_script_tasks : &fleet_script_tasks
-      script:
-        - python --version
-fleet_install_tasks : &fleet_install_tasks
-      install:
-        - pip install -r requirements.txt
-
-before_install:
-  - pip install virtualenv
-  - virtualenv -p $(which python2) ~venvpy2
-  - source ~venvpy2/bin/activate
-<<: *fleet_install_tasks
-<<: *fleet_script_tasks
+# fleet_script_tasks : &fleet_script_tasks
+#       script:
+#         - python --version
+# fleet_install_tasks : &fleet_install_tasks
+#       install:
+#         - pip install -r requirements.txt
+#
+# before_install:
+#   - pip install virtualenv
+#   - virtualenv -p $(which python2) ~venvpy2
+#   - source ~venvpy2/bin/activate
+# <<: *fleet_install_tasks
+# <<: *fleet_script_tasks
 
 script:
   - brew list --versions
