@@ -1,7 +1,7 @@
 # microk8s-travisci
 microk8s pipeline
 
-Travis (.com) dev branch:
+Travis (.com) branch:
 [![Build Status](https://travis-ci.com/githubfoam/microk8s-travisci.svg?branch=dev)](https://travis-ci.com/githubfoam/microk8s-travisci)  
 
 
