@@ -1,9 +1,9 @@
 language: c
 os:
   - linux
-dist:
-  # - bionic
-  - xenial
+dist: # not both at the same time.
+  - bionic
+  # - xenial
 arch:
   - amd64
   - arm64
