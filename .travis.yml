@@ -6,7 +6,6 @@ os:
 compiler:
   - gcc
   - clang
-
 addons:
   apt:
     packages:
@@ -21,24 +20,23 @@ fleet_install_tasks : &fleet_install_tasks
 
 before_install:
   # - if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew update          ; fi
-  - |
+  - | # Python 3.7
+    if [ "$TRAVIS_OS_NAME" = "linux" ]; then
+    pip3 install virtualenv
+    virtualenv -p $(which python3) ~venvpy3
+    source ~venvpy3/bin/activate
+    fi
+  - | #Python 3.7.5
     if [ "$TRAVIS_OS_NAME" = "osx" ]; then
     pip3 install virtualenv
     virtualenv -p $(which python3) ~venvpy3
     source ~venvpy3/bin/activate
     fi
-  - |
-    if [ "$TRAVIS_OS_NAME" = "osx" ]; then
-    brew update
-    pip install virtualenv
-    virtualenv -p $(which python2) ~venvpy2
-    source ~venvpy2/bin/activate
-    fi
-  - |
+  - | #Python 3.8
     if [ "$TRAVIS_OS_NAME" = "windows" ]; then
-    PATH=/c/Python37:/c/Python37/Scripts:$PATH
-    choco install python --version 3.7.3
-    python -m pip install virtualenv
+    PATH=/c/Python38:/c/Python38/Scripts:$PATH
+    choco install python --version 3.8.1
+    pip install virtualenv
     virtualenv $HOME/venv
     source $HOME/venv/Scripts/activate
     fi
