@@ -1,8 +1,8 @@
 language: c
-os:
+os: # python virtual environments
   - linux
   - osx
-  - windows #"Python 3.7 on Windows"
+  - windows
 compiler:
   - gcc
   - clang
