@@ -54,7 +54,7 @@ osx_image:
 # <<: *fleet_script_tasks
 
 script:
-  - brew list --versions
+  # - brew list --versions
   - echo "test"
 
 # after_success:
