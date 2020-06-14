@@ -265,7 +265,7 @@ fleet_script_microk8s_tasks : &fleet_script_microk8s_tasks #If you are running m
           - sudo microk8s kubectl get all --all-namespaces
           - sudo microk8s kubectl run nginx --image nginx --replicas 3
           - sudo microk8s kubectl get all --all-namespaces
-          - source run_k8s.sh
+          - sudo sh -c "bash run_k8s.sh"
 
 
 #https://istio.io/docs/setup/platform-setup/gardener/
