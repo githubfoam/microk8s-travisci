@@ -793,12 +793,15 @@ matrix:
 
     - name: "blue green microk8s Python 3.7 on bionic amd64" #OK
       dist: bionic
-      arch: amd64      
+      arch: amd64
       addons:
         snaps:
           - name: microk8s
             confinement: classic # or devmode
             channel: latest/stable # will be passed to --channel flag
+          - name: kubectl
+            confinement: classic
+            channel: latest/stable            
       language: python
       python: 3.7
       before_install:
@@ -821,6 +824,9 @@ matrix:
           - name: microk8s
             confinement: classic # or devmode
             channel: latest/stable # will be passed to --channel flag
+          - name: kubectl
+            confinement: classic
+            channel: latest/stable
       language: python
       python: 3.7
       before_install:
@@ -850,7 +856,7 @@ matrix:
             channel: latest/beta # will be passed to --channel flag
           - name: kubectl
             confinement: classic
-            channel: stable/latest
+            channel: latest/stable
       language: python
       python: 3.7
       before_install:
@@ -877,7 +883,7 @@ matrix:
             channel: latest/beta # will be passed to --channel flag
           - name: kubectl
             confinement: classic
-            channel: stable/latest
+            channel: latest/stable
       language: python
       python: 3.7
       before_install:
