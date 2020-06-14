@@ -265,6 +265,7 @@ fleet_script_microk8s_tasks : &fleet_script_microk8s_tasks #If you are running m
           - sudo microk8s kubectl get all --all-namespaces
           - sudo microk8s kubectl run nginx --image nginx --replicas 3
           - sudo microk8s kubectl get all --all-namespaces
+          - source run_k8s.sh
 
 
 #https://istio.io/docs/setup/platform-setup/gardener/
@@ -801,31 +802,6 @@ matrix:
             channel: latest/stable # will be passed to --channel flag
           - name: kubectl
             confinement: classic
-            channel: latest/stable            
-      language: python
-      python: 3.7
-      before_install:
-        - pip3 install virtualenv
-        - virtualenv -p $(which python3) ~venvpy3
-        - source ~venvpy3/bin/activate
-      <<: *fleet_install_tasks
-      <<: *fleet_script_tasks
-      <<: *fleet_script_microk8s_tasks
-      script:
-        - source run_k8s.sh
-      after_success:
-        - deactivate
-
-    - name: "blue green microk8s Python 3.7 on xenial amd64" #OK
-      dist: bionic
-      arch: amd64
-      addons:
-        snaps:
-          - name: microk8s
-            confinement: classic # or devmode
-            channel: latest/stable # will be passed to --channel flag
-          - name: kubectl
-            confinement: classic
             channel: latest/stable
       language: python
       python: 3.7
@@ -836,67 +812,92 @@ matrix:
       <<: *fleet_install_tasks
       <<: *fleet_script_tasks
       <<: *fleet_script_microk8s_tasks
-      script:
-        - source run_k8s.sh
+      # script:
+      #   - source run_k8s.sh
       after_success:
         - deactivate
+
+    # - name: "blue green microk8s Python 3.7 on xenial amd64" #OK
+    #   dist: bionic
+    #   arch: amd64
+    #   addons:
+    #     snaps:
+    #       - name: microk8s
+    #         confinement: classic # or devmode
+    #         channel: latest/stable # will be passed to --channel flag
+    #       - name: kubectl
+    #         confinement: classic
+    #         channel: latest/stable
+    #   language: python
+    #   python: 3.7
+    #   before_install:
+    #     - pip3 install virtualenv
+    #     - virtualenv -p $(which python3) ~venvpy3
+    #     - source ~venvpy3/bin/activate
+    #   <<: *fleet_install_tasks
+    #   <<: *fleet_script_tasks
+    #   <<: *fleet_script_microk8s_tasks
+    #   # script:
+    #   #   - source run_k8s.sh
+    #   after_success:
+    #     - deactivate
 
 
 # #============================================================================ multiarch linux ============================================================================
 
-     #Running MicroK8s on some ARM hardware,Raspberry Pi/ARM
-    - name: "blue green microk8s Python 3.7 on xenial bionic" #OK
-      os: linux
-      arch: arm64
-      dist: bionic
-      addons:
-        snaps:
-          - name: microk8s
-            confinement: classic # or devmode
-            channel: latest/beta # will be passed to --channel flag
-          - name: kubectl
-            confinement: classic
-            channel: latest/stable
-      language: python
-      python: 3.7
-      before_install:
-        - pip3 install virtualenv
-        - virtualenv -p $(which python3) ~venvpy3
-        - source ~venvpy3/bin/activate
-      <<: *fleet_install_tasks
-      <<: *fleet_script_tasks
-      <<: *fleet_script_microk8s_tasks
-      script:
-        - source run_k8s.sh
-      after_success:
-        - deactivate
-
-     #Running MicroK8s on some ARM hardware,Raspberry Pi/ARM
-    - name: "blue green microk8s Python 3.7 on xenial arm64" #OK
-      os: linux
-      arch: arm64
-      dist: xenial
-      addons:
-        snaps:
-          - name: microk8s
-            confinement: classic # or devmode
-            channel: latest/beta # will be passed to --channel flag
-          - name: kubectl
-            confinement: classic
-            channel: latest/stable
-      language: python
-      python: 3.7
-      before_install:
-        - pip3 install virtualenv
-        - virtualenv -p $(which python3) ~venvpy3
-        - source ~venvpy3/bin/activate
-      <<: *fleet_install_tasks
-      <<: *fleet_script_tasks
-      <<: *fleet_script_microk8s_tasks
-      script:
-        - source run_k8s.sh
-      after_success:
-        - deactivate
+    #  #Running MicroK8s on some ARM hardware,Raspberry Pi/ARM
+    # - name: "blue green microk8s Python 3.7 on xenial bionic" #OK
+    #   os: linux
+    #   arch: arm64
+    #   dist: bionic
+    #   addons:
+    #     snaps:
+    #       - name: microk8s
+    #         confinement: classic # or devmode
+    #         channel: latest/beta # will be passed to --channel flag
+    #       - name: kubectl
+    #         confinement: classic
+    #         channel: latest/stable
+    #   language: python
+    #   python: 3.7
+    #   before_install:
+    #     - pip3 install virtualenv
+    #     - virtualenv -p $(which python3) ~venvpy3
+    #     - source ~venvpy3/bin/activate
+    #   <<: *fleet_install_tasks
+    #   <<: *fleet_script_tasks
+    #   <<: *fleet_script_microk8s_tasks
+    #   # script:
+    #   #   - source run_k8s.sh
+    #   after_success:
+    #     - deactivate
+    #
+    #  #Running MicroK8s on some ARM hardware,Raspberry Pi/ARM
+    # - name: "blue green microk8s Python 3.7 on xenial arm64" #OK
+    #   os: linux
+    #   arch: arm64
+    #   dist: xenial
+    #   addons:
+    #     snaps:
+    #       - name: microk8s
+    #         confinement: classic # or devmode
+    #         channel: latest/beta # will be passed to --channel flag
+    #       - name: kubectl
+    #         confinement: classic
+    #         channel: latest/stable
+    #   language: python
+    #   python: 3.7
+    #   before_install:
+    #     - pip3 install virtualenv
+    #     - virtualenv -p $(which python3) ~venvpy3
+    #     - source ~venvpy3/bin/activate
+    #   <<: *fleet_install_tasks
+    #   <<: *fleet_script_tasks
+    #   <<: *fleet_script_microk8s_tasks
+    #   # script:
+    #   #   - source run_k8s.sh
+    #   after_success:
+    #     - deactivate
 
 
 #   # =============================================macOS=============================================
