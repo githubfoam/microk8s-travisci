@@ -791,7 +791,7 @@ matrix:
       after_success:
         - deactivate
 
-    - name: "microk8s Python 3.7 on xenial" #OK
+    - name: "blue green microk8s Python 3.7 on xenial" #OK
       dist: xenial
       addons:
         snaps:
@@ -807,6 +807,8 @@ matrix:
       <<: *fleet_install_tasks
       <<: *fleet_script_tasks
       <<: *fleet_script_microk8s_tasks
+      script:
+        - source run_k8s.sh
       after_success:
         - deactivate
 
