@@ -265,7 +265,9 @@ fleet_script_microk8s_tasks : &fleet_script_microk8s_tasks #If you are running m
           - sudo microk8s kubectl get all --all-namespaces
           - sudo microk8s kubectl run nginx --image nginx --replicas 3
           - sudo microk8s kubectl get all --all-namespaces
-          - sudo sh -c "bash run_k8s.sh"
+          ###################### #bluegreen ################################
+          # - sudo sh -c "bash run_k8s.sh"
+          ###################### #bluegreen ################################
           ###################### #openEBS ################################
           - sudo kubectl apply -f https://openebs.github.io/charts/openebs-operator.yaml #install OpenEBS
           - kubectl get service --all-namespaces # find a Service IP,list all services in all namespaces
