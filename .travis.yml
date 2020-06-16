@@ -235,12 +235,12 @@ fleet_script_microk8s_tasks : &fleet_script_microk8s_tasks #If you are running m
           - sudo microk8s  kubectl create deployment my-dep --image=busybox
           - sudo microk8s kubectl get pods #Check the status
           - sudo microk8s status --wait-ready
-          - yes | sudo microk8s enable istio     #Enforce mutual TLS authentication (https://bit.ly/2KB4j04) between sidecars? If unsure, choose N. (y/N):
+          # - yes | sudo microk8s enable istio     #Enforce mutual TLS authentication (https://bit.ly/2KB4j04) between sidecars? If unsure, choose N. (y/N):
           #kubeflow hanging
           # Enabling MetalLB
           # Enter the IP address range (e.g., 10.64.140.43-10.64.140.49):
           # - echo"10.64.140.43-10.64.140.49" | sudo microk8s enable metallb
-          - sudo microk8s enable dns cilium dashboard fluentd helm helm3 ingress jaeger knative metrics-server prometheus rbac registry storage #Use add-ons,services
+          # - sudo microk8s enable dns cilium dashboard fluentd helm helm3 ingress jaeger knative metrics-server prometheus rbac registry storage #Use add-ons,services
           # - sudo microk8s enable dns cilium dashboard fluentd helm helm3 ingress jaeger knative metallb metrics-server prometheus rbac registry storage #Use add-ons,services
           # - sudo microk8s enable dns cilium dashboard fluentd helm helm3 ingress jaeger knative kubeflow metallb metrics-server prometheus rbac registry storage #Use add-ons,services
           # - sudo microk8s enable dns cilium dashboard fluentd helm helm3 ingress istio jaeger knative kubeflow metallb metrics-server prometheus rbac registry storage #Use add-ons istio
@@ -249,40 +249,51 @@ fleet_script_microk8s_tasks : &fleet_script_microk8s_tasks #If you are running m
           # - microk8s start
           # - sudo microk8s enable dns dashboard registry #Turn on standard services
           # - watch microk8s.kubectl get all --all-namespaces #check deployment progress
-          - echo "=========================================================================================="
-          - sudo microk8s kubectl version
-          - sudo microk8s kubectl version --client #the version of the client
-          - sudo microk8s kubectl cluster-info
-          - echo "=========================================================================================="
-          - |
-            echo "Waiting for Kubernetes to be ready ..."
-            for i in {1..150}; do # Timeout after 5 minutes, 150x2=300 secs
-              if sudo microk8s kubectl get pods --namespace=kube-system | grep Running ; then
-                break
-              fi
-              sleep 2
-            done
-          - sudo microk8s kubectl get all --all-namespaces
-          - sudo microk8s kubectl run nginx --image nginx --replicas 3
-          - sudo microk8s kubectl get all --all-namespaces
+          # - echo "=========================================================================================="
+          # - sudo microk8s kubectl version
+          # - sudo microk8s kubectl version --client #the version of the client
+          # - sudo microk8s kubectl cluster-info
+          # - echo "=========================================================================================="
+          # - |
+          #   echo "Waiting for Kubernetes to be ready ..."
+          #   for i in {1..150}; do # Timeout after 5 minutes, 150x2=300 secs
+          #     if sudo microk8s kubectl get pods --namespace=kube-system | grep Running ; then
+          #       break
+          #     fi
+          #     sleep 2
+          #   done
+          # - sudo microk8s kubectl get all --all-namespaces
+          # - sudo microk8s kubectl run nginx --image nginx --replicas 3
+          # - sudo microk8s kubectl get all --all-namespaces
           ###################### #bluegreen ################################
           # - sudo sh -c "bash run_k8s.sh"
           ###################### #bluegreen ################################
           ###################### #openEBS ################################
-          - sudo kubectl apply -f https://openebs.github.io/charts/openebs-operator.yaml #install OpenEBS
-          - kubectl get service --all-namespaces # find a Service IP,list all services in all namespaces
-          - kubectl get pods -n openebs -l openebs.io/component-name=openebs-localpv-provisioner #Observe localhost provisioner pod
-          - kubectl get sc #Check the storage Class
-          - |
-            echo "Waiting for local storage to be ready ..."
-            for i in {1..60}; do # Timeout after 5 minutes, 150x5=300 secs
-                if sudo kubectl get pods --namespace=local-path-storage | grep Running ; then
-                  break
-                fi
-                sleep 5
-            done
-          - sudo kubectl get pods --all-namespaces
-          - sudo kubectl get pods --namespace=local-path-storage
+          #Config not found: /home/travis/.kube/config
+          - sudo microk8s.kubectl config -h
+          - sudo snap alias microk8s.kubectl kubectl
+          - sudo kubectl config view | sudo tee ~/.kube/config
+          - sudo cat ~/.kube/config
+          - echo -e '#!/bin/bash \nkubectl --kubeconfig=~/.kube/config \"$@\"' | sudo tee /snap/bin/kubectlx
+          - sudo chmod +x /snap/bin/kubectlx
+          - echo "alias kubectl=kubectlx" | sudo tee -a ~/.bash_profile
+          - sudo source ~/.bash_profile
+          - sudo kubectl config set-context mycontext --cluster=microk8s-cluster --user=admin --namespace=my-namespace
+          - sudo kubectl config get-contexts
+          # - sudo kubectl apply -f https://openebs.git hub.io/charts/openebs-operator.yaml #install OpenEBS
+          # - kubectl get service --all-namespaces # find a Service IP,list all services in all namespaces
+          # - kubectl get pods -n openebs -l openebs.io/component-name=openebs-localpv-provisioner #Observe localhost provisioner pod
+          # - kubectl get sc #Check the storage Class
+          # - |
+          #   echo "Waiting for local storage to be ready ..."
+          #   for i in {1..60}; do # Timeout after 5 minutes, 150x5=300 secs
+          #       if sudo kubectl get pods --namespace=local-path-storage | grep Running ; then
+          #         break
+          #       fi
+          #       sleep 5
+          #   done
+          # - sudo kubectl get pods --all-namespaces
+          # - sudo kubectl get pods --namespace=local-path-storage
           ###################### #openEBS  ######################
 
 #https://istio.io/docs/setup/platform-setup/gardener/
