@@ -270,16 +270,10 @@ fleet_script_microk8s_tasks : &fleet_script_microk8s_tasks #If you are running m
           ###################### #bluegreen ################################
           ###################### #openEBS ################################
           #Config not found: /home/travis/.kube/config
-          - sudo microk8s.kubectl config -h
-          - sudo snap alias microk8s.kubectl kubectl
-          - sudo kubectl config view | sudo tee ~/.kube/config
-          - sudo cat ~/.kube/config
-          - echo -e '#!/bin/bash \nkubectl --kubeconfig=~/.kube/config \"$@\"' | sudo tee /snap/bin/kubectlx
-          - sudo chmod +x /snap/bin/kubectlx
-          - echo "alias kubectl=kubectlx" | sudo tee -a ~/.bash_profile
-          - sudo source ~/.bash_profile
-          - sudo kubectl config set-context mycontext --cluster=microk8s-cluster --user=admin --namespace=my-namespace
-          - sudo kubectl config get-contexts
+          - sudo microk8s.kubectl config current-context
+          - sudo microk8s.kubectl config get-clusters
+          - sudo microk8s.kubectl config get-contexts
+          - sudo microk8s.kubectl config view -h
           # - sudo kubectl apply -f https://openebs.git hub.io/charts/openebs-operator.yaml #install OpenEBS
           # - kubectl get service --all-namespaces # find a Service IP,list all services in all namespaces
           # - kubectl get pods -n openebs -l openebs.io/component-name=openebs-localpv-provisioner #Observe localhost provisioner pod
