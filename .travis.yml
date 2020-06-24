@@ -835,8 +835,15 @@ matrix:
         - pip install -r requirements.txt
       script:
         - sudo snap install lxd
+        - sudo lxc list
+        #https://juju.is/docs/lxd-cloud
+        #The interactive method should be used to obtain a more customised setup (e.g. clustering, storage, etc.)
         # - sudo lxd init #Do you want to configure a new storage pool (yes/no) [default=yes]? yes
-        - echo "yes" | sudo lxd init
+        # - echo "yes" | sudo lxd init
+        # quickly configure LXD for general use,configure LXD to use the legacy ‘dir’ (filesystem) for storage
+        # - echo "yes" | lxd init --auto
+        #  use a different backend, such as ZFS
+        - echo "yes" | lxd init --auto --storage-backend zfs
         - sudo lxc profile create microk8s
         # for ZFS
         - wget https://raw.githubusercontent.com/ubuntu/microk8s/master/tests/lxc/microk8s-zfs.profile -O microk8s.profile
@@ -846,6 +853,7 @@ matrix:
         - sudo rm microk8s.profile
         - sudo lxc launch -p default -p microk8s ubuntu:20.04 microk8s
         - sudo lxc exec microk8s -- sudo snap install microk8s --classic
+        - sudo lxc list
       after_success:
         - deactivate
 
