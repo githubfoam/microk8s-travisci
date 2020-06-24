@@ -835,7 +835,8 @@ matrix:
         - pip install -r requirements.txt
       script:
         - sudo snap install lxd
-        - sudo lxd init
+        # - sudo lxd init #Do you want to configure a new storage pool (yes/no) [default=yes]? yes
+        - echo "yes" | sudo lxd init
         - sudo lxc profile create microk8s
         # for ZFS
         - wget https://raw.githubusercontent.com/ubuntu/microk8s/master/tests/lxc/microk8s-zfs.profile -O microk8s.profile
@@ -844,7 +845,7 @@ matrix:
         - cat microk8s.profile | lxc profile edit microk8s
         - sudo rm microk8s.profile
         - sudo lxc launch -p default -p microk8s ubuntu:20.04 microk8s
-        - sudo lxc exec microk8s -- sudo snap install microk8s --classic        
+        - sudo lxc exec microk8s -- sudo snap install microk8s --classic
       after_success:
         - deactivate
 
