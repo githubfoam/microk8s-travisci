@@ -847,8 +847,10 @@ matrix:
         # quickly configure LXD for general use,configure LXD to use the legacy ‘dir’ (filesystem) for storage
         # - echo "yes" | lxd init --auto
         #  use a different backend, such as ZFS
-        - echo "yes" | sudo lxd init --auto --storage-backend zfs
+        - sudo lxd init --auto --storage-backend zfs
+        - sudo lxc profile list
         - sudo lxc profile create microk8s
+        - sudo lxc profile show  microk8s
         # for ZFS
         - wget https://raw.githubusercontent.com/ubuntu/microk8s/master/tests/lxc/microk8s-zfs.profile -O microk8s.profile
         # for ext4
