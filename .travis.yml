@@ -793,6 +793,7 @@ matrix:
       # <<: *fleet_script_microk8s_tasks
       script:
         - sudo make deploy-microk8s
+        - sudo make deploy-cilium
       after_success:
         - deactivate
 

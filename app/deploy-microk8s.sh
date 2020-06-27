@@ -24,6 +24,9 @@ for i in {1..60}; do # Timeout after 3 minutes, 60x5=300 secs
      fi
 done
 
+microk8s kubectl get pods --all-namespaces
+microk8s kubectl get pod -o wide #The IP column will contain the internal cluster IP address for each pod.
+microk8s kubectl get service --all-namespaces # find a Service IP,list all services in all namespaces
 microk8s kubectl get nodes
 microk8s kubectl get services
 
