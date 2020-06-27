@@ -19,3 +19,4 @@ microk8s kubectl get pod -o wide #The IP column will contain the internal cluste
 microk8s kubectl get service --all-namespaces # find a Service IP,list all services in all namespaces
 microk8s kubectl get nodes
 microk8s kubectl get services
+microk8s status

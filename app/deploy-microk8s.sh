@@ -36,3 +36,4 @@ microk8s kubectl get services
 microk8s kubectl version
 microk8s kubectl version --client #the version of the client
 microk8s kubectl cluster-info
+microk8s status

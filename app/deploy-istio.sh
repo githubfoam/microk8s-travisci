@@ -6,6 +6,7 @@ set -o xtrace
 # set -eox pipefail #safety for script
 
 echo "=============================deploy istio============================================================="
+
 microk8s.enable istio
 
 
@@ -40,3 +41,4 @@ microk8s kubectl get pod -o wide #The IP column will contain the internal cluste
 microk8s kubectl get service --all-namespaces # find a Service IP,list all services in all namespaces
 microk8s kubectl get nodes
 microk8s kubectl get services
+microk8s status

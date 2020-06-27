@@ -26,6 +26,7 @@ done
 echo "=============================deploy  knative============================================================="
 
 #Installing istio-1.5.1
+microk8s status
 microk8s.enable knative
 echo "Waiting for  knative-serving to be ready ..."
 for i in {1..60}; do # Timeout after 3 minutes, 60x5=300 secs
@@ -50,3 +51,6 @@ microk8s kubectl get pod -o wide #The IP column will contain the internal cluste
 microk8s kubectl get service --all-namespaces # find a Service IP,list all services in all namespaces
 microk8s kubectl get nodes
 microk8s kubectl get services
+
+microk8s linkerd check
+microk8s status
