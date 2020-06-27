@@ -1,6 +1,12 @@
 IMAGE := alpine/fio
 APP:="app/deploy-openesb.sh"
 
+deploy-istio:
+	bash app/deploy-istio.sh
+deploy-linkerd-knative:
+	bash app/deploy-linkerd-knative.sh
+deploy-linkerd:
+	bash app/deploy-linkerd.sh
 deploy-cilium:
 	bash app/deploy-cilium.sh
 deploy-microk8s:

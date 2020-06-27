@@ -5,11 +5,11 @@ set -o nounset
 set -o xtrace
 # set -eox pipefail #safety for script
 
-
-# Install microk8s >= 1.15 as per microk8s documentation: MicroK8s User guide.
-# https://docs.cilium.io/en/latest/gettingstarted/microk8s/
-echo "=============================deploy cilium============================================================="
-microk8s.enable cilium
+#https://microk8s.io/#get-started
+#https://microk8s.io/docs
+#https://istio.io/docs/setup/platform-setup/microk8s/
+echo "=============================deploy linkerd============================================================="
+microk8s.enable linkerd
 #yes | sudo microk8s enable cilium
 
 microk8s kubectl get pods --all-namespaces
