@@ -9,7 +9,7 @@ notifications:
 matrix:
   fast_finish: true
   include:
-
+      #Installing istio-1.5.1?
     - name: "serverless knative linkerd service mesh microk8s w snap Python 3.7 on bionic"
       dist: bionic
       addons:

@@ -10,10 +10,44 @@ set -o xtrace
 #https://istio.io/docs/setup/platform-setup/microk8s/
 #https://linkerd.io/2020/03/23/serverless-service-mesh-with-knative-and-linkerd/
 #knative: Adds the Knative middleware to your cluster (not available on arm64 arch).
-echo "=============================deploy linkerd knative============================================================="
-microk8s.enable linkerd
+echo "=============================deploy linkerd ============================================================="
+
+#ERRO[0000] could not set namespace from kubectl context: ensure a valid KUBECONFIG path has been set
+microk8s.enable istio
+
+echo "Waiting for  istio to be ready ..."
+for i in {1..60}; do # Timeout after 3 minutes, 60x5=300 secs
+     if microk8s kubectl get pods --namespace=istio-system   | grep ContainerCreating ; then
+         sleep 5
+     else
+         break
+     fi
+done
+
+microk8s kubectl get pods --all-namespaces
+microk8s kubectl get pod -o wide #The IP column will contain the internal cluster IP address for each pod.
+microk8s kubectl get service --all-namespaces # find a Service IP,list all services in all namespaces
+microk8s kubectl get nodes
+microk8s kubectl get services
+echo "=============================deploy knative============================================================="
 microk8s.enable knative
-#yes | sudo microk8s enable cilium
+echo "Waiting for  knative-serving to be ready ..."
+for i in {1..60}; do # Timeout after 3 minutes, 60x5=300 secs
+     if microk8s kubectl get pods --namespace=knative-serving   | grep ContainerCreating ; then
+         sleep 10
+     else
+         break
+     fi
+done
+
+echo "Waiting for  knative-eventing  to be ready ..."
+for i in {1..60}; do # Timeout after 3 minutes, 60x5=300 secs
+     if microk8s kubectl get pods --namespace=knative-eventing    | grep ContainerCreating ; then
+         sleep 10
+     else
+         break
+     fi
+done
 
 microk8s kubectl get pods --all-namespaces
 microk8s kubectl get pod -o wide #The IP column will contain the internal cluster IP address for each pod.

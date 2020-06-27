@@ -9,12 +9,13 @@ set -o xtrace
 #https://microk8s.io/docs
 #https://istio.io/docs/setup/platform-setup/microk8s/
 echo "=============================deploy linkerd============================================================="
+
 #ERRO[0000] could not set namespace from kubectl context: ensure a valid KUBECONFIG path has been set
 microk8s.enable linkerd
 
 echo "Waiting for  linkerd to be ready ..."
 for i in {1..60}; do # Timeout after 3 minutes, 60x5=300 secs
-     if microk8s kubectl get pods --namespace=kube-system  | grep ContainerCreating ; then
+     if microk8s kubectl get pods --namespace=linkerd   | grep ContainerCreating ; then
          sleep 5
      else
          break
