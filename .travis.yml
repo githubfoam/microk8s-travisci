@@ -50,6 +50,26 @@ matrix:
       after_success:
         - deactivate
 
+    - name: "serverless knative istio service mesh microk8s w snap Python 3.7 on bionic"
+      dist: bionic
+      addons:
+        snaps:
+          - name: microk8s
+            confinement: classic # or devmode
+            channel: latest/stable # will be passed to --channel flag
+      language: python
+      python: 3.7
+      before_install:
+        - pip3 install virtualenv
+        - virtualenv -p $(which python3) ~venvpy3
+        - source ~venvpy3/bin/activate
+        - pip install -r requirements.txt
+      script:
+        - sudo make deploy-microk8s
+        - sudo make deploy-istio-knative
+      after_success:
+        - deactivate
+
     - name: "istio service mesh microk8s w snap Python 3.7 on bionic"
       dist: bionic
       addons:
@@ -66,7 +86,7 @@ matrix:
         - pip install -r requirements.txt
       script:
         - sudo make deploy-microk8s
-        - sudo make deploy-isto
+        - sudo make deploy-istio
       after_success:
         - deactivate
 

@@ -8,18 +8,12 @@ set -o xtrace
 #https://microk8s.io/#get-started
 #https://microk8s.io/docs
 #https://istio.io/docs/setup/platform-setup/microk8s/
-echo "=============================deploy linkerd============================================================="
-#ERRO[0000] could not set namespace from kubectl context: ensure a valid KUBECONFIG path has been set
+#https://linkerd.io/2020/03/23/serverless-service-mesh-with-knative-and-linkerd/
+#knative: Adds the Knative middleware to your cluster (not available on arm64 arch).
+echo "=============================deploy linkerd knative============================================================="
 microk8s.enable linkerd
-
-echo "Waiting for  linkerd to be ready ..."
-for i in {1..60}; do # Timeout after 3 minutes, 60x5=300 secs
-     if microk8s kubectl get pods --namespace=kube-system  | grep ContainerCreating ; then
-         sleep 5
-     else
-         break
-     fi
-done
+microk8s.enable knative
+#yes | sudo microk8s enable cilium
 
 microk8s kubectl get pods --all-namespaces
 microk8s kubectl get pod -o wide #The IP column will contain the internal cluster IP address for each pod.
