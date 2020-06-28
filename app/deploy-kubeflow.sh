@@ -12,7 +12,10 @@ echo "=============================deploy kubeflow juju bundle==================
 
 usermod -aG microk8s $USER
 
-microk8s.enable kubeflow
+#microk8s.enable kubeflow
+# Kubeflow recommends at least 14 GB of memory.
+# Run `KUBEFLOW_IGNORE_MIN_MEM=true microk8s.enable kubeflow` if you'd like to proceed anyways.
+KUBEFLOW_IGNORE_MIN_MEM=true microk8s.enable kubeflow
 microk8s.enable juju
 
 echo "Waiting for  ingress to be ready ..."
