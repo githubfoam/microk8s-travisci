@@ -22,13 +22,13 @@ for i in {1..60}; do # Timeout after 3 minutes, 60x5=300 secs
      fi
 done
 
-#reach the dashboard by forwarding its port to a free one on the host
-# microk8s kubectl port-forward -n kube-system service/kubernetes-dashboard 10443:443
-# curl https://127.0.0.1:10443
-
 microk8s kubectl get pods --all-namespaces
 microk8s kubectl get pod -o wide #The IP column will contain the internal cluster IP address for each pod.
 microk8s kubectl get service --all-namespaces # find a Service IP,list all services in all namespaces
 microk8s kubectl get nodes
 microk8s kubectl get services
 microk8s status
+
+#reach the dashboard by forwarding its port to a free one on the host
+# microk8s kubectl port-forward -n kube-system service/kubernetes-dashboard 10443:443
+# curl https://127.0.0.1:10443

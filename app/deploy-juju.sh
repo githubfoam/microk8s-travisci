@@ -6,15 +6,15 @@ set -o xtrace
 # set -eox pipefail #safety for script
 
 
-# https://microk8s.io/docs/addon-ingress
+# https://juju.is/docs/what-is-juju
 # https://microk8s.io/docs/addons#heading--list
-echo "=============================deploy ingress============================================================="
-microk8s.enable ingress
+echo "=============================deploy juju============================================================="
+microk8s.enable juju
 
-
+microk8s kubectl get pods --all-namespaces
 echo "Waiting for  ingress to be ready ..."
 for i in {1..60}; do # Timeout after 3 minutes, 60x5=300 secs
-     if microk8s kubectl get pods --namespace=ingress  | grep ContainerCreating ; then
+     if microk8s kubectl get pods --namespace=kube-system  | grep ContainerCreating ; then
          sleep 5
      else
          break
@@ -27,3 +27,5 @@ microk8s kubectl get service --all-namespaces # find a Service IP,list all servi
 microk8s kubectl get nodes
 microk8s kubectl get services
 microk8s status
+
+microk8s.juju deploy mysql --to machine:0/lxc

@@ -1,6 +1,11 @@
 IMAGE := alpine/fio
 APP:="app/deploy-openesb.sh"
 
+deploy-kubeflow:
+	bash app/deploy-kubeflow.sh
+deploy-juju:
+	bash app/deploy-juju.sh
+
 deploy-jaeger:
 	bash app/deploy-jaeger.sh
 deploy-ingress:
@@ -9,9 +14,9 @@ deploy-dashboard-rbac:
 	bash app/deploy-dashboard-rbac.sh
 deploy-dashboard:
 	bash app/deploy-dashboard.sh
-
 deploy-fluentd:
-	bash app/deploy-istio-knative.sh
+	bash app/deploy-fluentd.sh
+
 deploy-istio-knative:
 	bash app/deploy-istio-knative.sh
 deploy-istio:

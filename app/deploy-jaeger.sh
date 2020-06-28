@@ -31,10 +31,10 @@ microk8s status
 #Once the jaeger-operator deployment in the namespace observability is ready, create a Jaeger instance
 #create a Jaeger instance named simplest
 #The Jaeger UI is served via the Ingress
-kubectl apply -n observability -f - <<EOF
+microk8s kubectl apply -n observability -f - <<EOF
 apiVersion: jaegertracing.io/v1
 kind: Jaeger
 metadata:
   name: simplest
 EOF
-kubectl get ingress
+microk8s kubectl get ingress
