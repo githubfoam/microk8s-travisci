@@ -16,29 +16,32 @@ usermod -aG microk8s $USER
 # Kubeflow recommends at least 14 GB of memory.
 # Run `KUBEFLOW_IGNORE_MIN_MEM=true microk8s.enable kubeflow` if you'd like to proceed anyways.
 KUBEFLOW_IGNORE_MIN_MEM=true microk8s.enable kubeflow
-microk8s.enable juju
+# Error from server (NotFound): mutatingwebhookconfigurations.admissionregistration.k8s.io "katib-mutating-webhook-config" not found
+# Error from server (NotFound): validatingwebhookconfigurations.admissionregistration.k8s.io "katib-validating-webhook-config" not found
 
-echo "Waiting for  ingress to be ready ..."
-for i in {1..60}; do # Timeout after 3 minutes, 60x5=300 secs
-     if microk8s kubectl get pods --namespace=kube-system  | grep ContainerCreating ; then
-         sleep 5
-     else
-         break
-     fi
-done
+# microk8s.enable juju
 
-microk8s kubectl get pods --all-namespaces
-microk8s kubectl get pod -o wide #The IP column will contain the internal cluster IP address for each pod.
-microk8s kubectl get service --all-namespaces # find a Service IP,list all services in all namespaces
-microk8s kubectl get nodes
-microk8s kubectl get services
-microk8s status
-
-#set up microk8s
-python3 --version
-python3 scripts/cli.py microk8s setup --controller uk8s
-#The deploy-to command allows manually setting a public address that is used for accessing Kubeflow on MicroK8s
-python3 scripts/cli.py deploy-to uk8s
+# echo "Waiting for  ingress to be ready ..."
+# for i in {1..60}; do # Timeout after 3 minutes, 60x5=300 secs
+#      if microk8s kubectl get pods --namespace=kube-system  | grep ContainerCreating ; then
+#          sleep 5
+#      else
+#          break
+#      fi
+# done
+#
+# microk8s kubectl get pods --all-namespaces
+# microk8s kubectl get pod -o wide #The IP column will contain the internal cluster IP address for each pod.
+# microk8s kubectl get service --all-namespaces # find a Service IP,list all services in all namespaces
+# microk8s kubectl get nodes
+# microk8s kubectl get services
+# microk8s status
+#
+# #set up microk8s
+# python3 --version
+# python3 scripts/cli.py microk8s setup --controller uk8s
+# #The deploy-to command allows manually setting a public address that is used for accessing Kubeflow on MicroK8s
+# python3 scripts/cli.py deploy-to uk8s
 
 #configure MicroK8s to use LAN DNS instead of the default of 8.8.8.8
 # edit the coredns configmap
