@@ -8,11 +8,16 @@ Travis (.com) branch:
 MicroK8s Addons
 
 cilium: Deploys Cilium to support Kubernetes network policies using eBPF.
-fluentd: Deploy the Elasticsearch-Fluentd-Kibana logging and
-monitoring solution.
 istio: Adds the core Istio services (not available on arm64 arch).
 knative: Adds the Knative middleware to your cluster (not available on arm64 arch).
 linkerd: Deploys the linkerd service mesh (not available on arm64 arch).
+dashboard: The standard Kubernetes Dashboard
+fluentd: Deploy the Elasticsearch-Fluentd-Kibana logging and
+monitoring solution.
+jaeger: Deploy the Jaeger Operator in the “simplest”
+configuration.
+juju: Enables a juju client to work with MicroK8s.
+ingress: A simple ingress controller for external access.
 
 https://microk8s.io/docs/addons#heading--list
 ~~~~
