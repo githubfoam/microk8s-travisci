@@ -8,7 +8,7 @@ set -o xtrace
 
 # https://microk8s.io/docs/addon-dashboard
 # https://microk8s.io/docs/addons#heading--list
-echo "=============================deploy cilium============================================================="
+echo "=============================deploy dashboard============================================================="
 microk8s.enable dashboard
 #generated randomly on deployment
 #To log in to the Dashboard, you will need the access token (unless RBAC hasalso been enabled)
@@ -24,8 +24,9 @@ for i in {1..60}; do # Timeout after 3 minutes, 60x5=300 secs
      fi
 done
 
-#reach the dashboard by forwarding its port to a free one on the host 
-microk8s kubectl port-forward -n kube-system service/kubernetes-dashboard 10443:443
+#reach the dashboard by forwarding its port to a free one on the host
+#error: unable to forward port because pod is not running. Current status=Pending
+microk8s kubectl port-forward -n kube-system service/kubernetes-dashboard 10443:443 &
 curl https://127.0.0.1:10443
 
 microk8s kubectl get pods --all-namespaces

@@ -1,6 +1,10 @@
 IMAGE := alpine/fio
 APP:="app/deploy-openesb.sh"
 
+deploy-jaeger:
+	bash app/deploy-jaeger.sh
+deploy-ingress:
+	bash app/deploy-ingress.sh
 deploy-dashboard-rbac:
 	bash app/deploy-dashboard-rbac.sh
 deploy-dashboard:

@@ -56,3 +56,4 @@ microk8s kubectl get service --all-namespaces # find a Service IP,list all servi
 microk8s kubectl get nodes
 microk8s kubectl get services
 microk8s status
+microk8s status | grep enabled
