@@ -34,4 +34,6 @@ microk8s status
 
 #curl: (7) Failed to connect to 127.0.0.1 port 10443: Connection refused
 microk8s kubectl port-forward -n kube-system service/kubernetes-dashboard 10443:443 &
-curl https://127.0.0.1:10443
+
+# curl: (7) Failed to connect to 127.0.0.1 port 10443: Connection refused
+# curl https://127.0.0.1:10443

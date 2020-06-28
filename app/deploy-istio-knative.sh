@@ -52,7 +52,10 @@ done
 
 microk8s kubectl get pods --all-namespaces
 microk8s kubectl get pod -o wide #The IP column will contain the internal cluster IP address for each pod.
-microk8s kubectl get service --all-namespaces # find a Service IP,list all services in all namespaces
+
+#The connection to the server 127.0.0.1:16443 was refused - did you specify the right host or port?
+#microk8s kubectl get service --all-namespaces # find a Service IP,list all services in all namespaces
+
 microk8s kubectl get nodes
 microk8s kubectl get services
 microk8s status
