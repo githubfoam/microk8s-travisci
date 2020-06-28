@@ -1,6 +1,11 @@
 IMAGE := alpine/fio
 APP:="app/deploy-openesb.sh"
 
+deploy-registry:
+	bash app/deploy-registry.sh
+deploy-prometheus:
+	bash app/deploy-prometheus.sh
+
 deploy-kubeflow:
 	bash app/deploy-kubeflow.sh
 deploy-juju:
@@ -11,6 +16,7 @@ deploy-ingress:
 	bash app/deploy-ingress.sh
 deploy-dashboard-rbac:
 	bash app/deploy-dashboard-rbac.sh
+
 deploy-dashboard:
 	bash app/deploy-dashboard.sh
 deploy-fluentd:

@@ -5,14 +5,14 @@ set -o nounset
 set -o xtrace
 # set -eox pipefail #safety for script
 
-echo "=============================deploy istio============================================================="
+echo "=============================deploy metrics-server============================================================="
 
-microk8s.enable istio
+microk8s.enable metrics-server
 
 
-echo "Waiting for  istio to be ready ..."
+echo "Waiting for  metrics-server to be ready ..."
 for i in {1..60}; do # Timeout after 3 minutes, 60x5=300 secs
-     if microk8s kubectl get pods --namespace=istio-system  | grep ContainerCreating ; then
+     if microk8s kubectl get pods --namespace=kube-system  | grep ContainerCreating ; then
          sleep 5
      else
          break

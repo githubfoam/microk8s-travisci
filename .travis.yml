@@ -10,6 +10,65 @@ matrix:
   fast_finish: true
   include:
 
+    - name: "metrics-server microk8s w snap Python 3.7 on bionic"
+      dist: bionic
+      addons:
+        snaps:
+          - name: microk8s
+            confinement: classic # or devmode
+            channel: latest/stable # will be passed to --channel flag
+      language: python
+      python: 3.7
+      before_install:
+        - pip3 install virtualenv
+        - virtualenv -p $(which python3) ~venvpy3
+        - source ~venvpy3/bin/activate
+        - pip install -r requirements.txt
+      script:
+        - sudo make deploy-microk8s
+        - sudo make deploy-metrics-server
+      after_success:
+        - deactivate
+
+    - name: "registry & storage microk8s w snap Python 3.7 on bionic"
+      dist: bionic
+      addons:
+        snaps:
+          - name: microk8s
+            confinement: classic # or devmode
+            channel: latest/stable # will be passed to --channel flag
+      language: python
+      python: 3.7
+      before_install:
+        - pip3 install virtualenv
+        - virtualenv -p $(which python3) ~venvpy3
+        - source ~venvpy3/bin/activate
+        - pip install -r requirements.txt
+      script:
+        - sudo make deploy-microk8s
+        - sudo make deploy-prometheus
+      after_success:
+        - deactivate
+
+    - name: "prometheus microk8s w snap Python 3.7 on bionic"
+      dist: bionic
+      addons:
+        snaps:
+          - name: microk8s
+            confinement: classic # or devmode
+            channel: latest/stable # will be passed to --channel flag
+      language: python
+      python: 3.7
+      before_install:
+        - pip3 install virtualenv
+        - virtualenv -p $(which python3) ~venvpy3
+        - source ~venvpy3/bin/activate
+        - pip install -r requirements.txt
+      script:
+        - sudo make deploy-microk8s
+        - sudo make deploy-prometheus
+      after_success:
+        - deactivate
 
     - name: "jaeger microk8s w snap Python 3.7 on bionic"
       dist: bionic
@@ -206,7 +265,7 @@ matrix:
         snaps:
           - name: microk8s
             confinement: classic
-            channel: latest/stable 
+            channel: latest/stable
       language: python
       python: 3.7
       before_install:

@@ -10,7 +10,7 @@ set -o xtrace
 #https://istio.io/docs/setup/platform-setup/microk8s/
 #https://linkerd.io/2020/03/23/serverless-service-mesh-with-knative-and-linkerd/
 #knative: Adds the Knative middleware to your cluster (not available on arm64 arch).
-echo "=============================deploy linkerd ============================================================="
+echo "=============================deploy istio knative ============================================================="
 
 #ERRO[0000] could not set namespace from kubectl context: ensure a valid KUBECONFIG path has been set
 microk8s.enable istio

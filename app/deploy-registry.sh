@@ -5,14 +5,15 @@ set -o nounset
 set -o xtrace
 # set -eox pipefail #safety for script
 
-echo "=============================deploy istio============================================================="
-
-microk8s.enable istio
+echo "=============================deploy registry & storage============================================================="
+#Deploy a private image registry and expose it on localhost:32000.
+#The storage add-on will be enabled as part of this add-on
+microk8s.enable registry
 
 
 echo "Waiting for  istio to be ready ..."
 for i in {1..60}; do # Timeout after 3 minutes, 60x5=300 secs
-     if microk8s kubectl get pods --namespace=istio-system  | grep ContainerCreating ; then
+     if microk8s kubectl get pods --namespace=kube-system  | grep ContainerCreating ; then
          sleep 5
      else
          break
