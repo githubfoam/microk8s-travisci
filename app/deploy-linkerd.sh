@@ -28,5 +28,9 @@ microk8s kubectl get service --all-namespaces # find a Service IP,list all servi
 microk8s kubectl get nodes
 microk8s kubectl get services
 
-microk8s linkerd check
+# ERRO[0000] could not set namespace from kubectl context: ensure a valid KUBECONFIG path has been set
+# × is running the minimum kubectl version
+#     exec: "kubectl": executable file not found in $PATH
+#     see https://linkerd.io/checks/#kubectl-version for hints
+# microk8s linkerd check
 microk8s status

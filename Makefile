@@ -1,6 +1,13 @@
 IMAGE := alpine/fio
 APP:="app/deploy-openesb.sh"
 
+deploy-dashboard-rbac:
+	bash app/deploy-dashboard-rbac.sh
+deploy-dashboard:
+	bash app/deploy-dashboard.sh
+
+deploy-fluentd:
+	bash app/deploy-istio-knative.sh
 deploy-istio-knative:
 	bash app/deploy-istio-knative.sh
 deploy-istio:
