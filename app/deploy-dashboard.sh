@@ -32,7 +32,6 @@ microk8s kubectl get nodes
 microk8s kubectl get services
 microk8s status
 
-#reach the dashboard by forwarding its port to a free one on the host
-#error: unable to forward port because pod is not running. Current status=Pending
+#curl: (7) Failed to connect to 127.0.0.1 port 10443: Connection refused
 microk8s kubectl port-forward -n kube-system service/kubernetes-dashboard 10443:443 &
 curl https://127.0.0.1:10443

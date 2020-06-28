@@ -112,6 +112,7 @@ matrix:
       after_success:
         - deactivate
 
+      #dashboard: disabled ?
     - name: "dashboard wo RBAC microk8s w snap Python 3.7 on bionic"
       dist: bionic
       addons:

@@ -14,7 +14,7 @@ microk8s.enable jaeger
 microk8s kubectl get pods --all-namespaces
 echo "Waiting for  jaeger to be ready ..."
 for i in {1..60}; do # Timeout after 3 minutes, 60x5=300 secs
-     if microk8s kubectl get pods --namespace=observability  | grep ContainerCreating ; then
+     if microk8s kubectl get pods --namespace=kube-system  | grep ContainerCreating ; then
          sleep 5
      else
          break

@@ -11,7 +11,7 @@ set -o xtrace
 echo "=============================deploy kubeflow juju bundle============================================================="
 
 groups # list groups
-groupadd microk8s
+#groupadd microk8s #'microk8s' already exists
 #add current user $USER to the microk8s group
 usermod -aG microk8s $USER
 # The newgrp command allows a user to override the current primary group.

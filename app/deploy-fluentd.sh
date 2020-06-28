@@ -22,7 +22,8 @@ done
 
 #access the Kibana dashboard
 microk8s kubectl proxy &
-curl http://127.0.0.1:8001/api/v1/namespaces/kube-system/services/kibana-logging/proxy/app/kibana
+#Failed to connect to 127.0.0.1 port 8001: Connection refused
+#curl http://127.0.0.1:8001/api/v1/namespaces/kube-system/services/kibana-logging/proxy/app/kibana
 
 microk8s kubectl get pods --all-namespaces
 microk8s kubectl get pod -o wide #The IP column will contain the internal cluster IP address for each pod.

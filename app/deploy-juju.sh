@@ -9,7 +9,7 @@ set -o xtrace
 # https://juju.is/docs/what-is-juju
 # https://microk8s.io/docs/addons#heading--list
 echo "=============================deploy juju============================================================="
-microk8s.enable juju
+#microk8s.enable juju #Juju now comes bundled with MicroK8s; this script has been deprecated
 
 microk8s kubectl get pods --all-namespaces
 echo "Waiting for  ingress to be ready ..."
@@ -27,5 +27,3 @@ microk8s kubectl get service --all-namespaces # find a Service IP,list all servi
 microk8s kubectl get nodes
 microk8s kubectl get services
 microk8s status
-
-microk8s.juju deploy mysql --to machine:0/lxc
