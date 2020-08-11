@@ -10,7 +10,9 @@ matrix:
   fast_finish: true
   include:
 
-    - name: "ebpf testing microk8s w snap Python 3.7 on bionic"
+#====================STILL TESTING BEGINS========================================================
+
+    - name: "chaos mesh  w snapped microk8s Python 3.7 on bionic"
       dist: bionic
       addons:
         snaps:
@@ -26,114 +28,154 @@ matrix:
         - pip install -r requirements.txt
       script:
         - sudo make deploy-microk8s
-        - sudo make deploy-ebpf
+        - sudo make deploy-chaosmesh
       after_success:
         - deactivate
 
-    - name: "kubeflow addon microk8s w snap Python 3.7 on bionic"
-      dist: bionic
-      addons:
-        snaps:
-          - name: microk8s
-            confinement: classic # or devmode
-            channel: latest/stable # will be passed to --channel flag
-      language: python
-      python: 3.7
-      before_install:
-        - pip3 install virtualenv
-        - virtualenv -p $(which python3) ~venvpy3
-        - source ~venvpy3/bin/activate
-        - pip install -r requirements.txt
-      script:
-        - sudo make deploy-microk8s
-        - sudo make deploy-kubeflow
-      after_success:
-        - deactivate
+    # - name: "jenkins configuration as code microk8s w snap Python 3.7 on bionic"
+    #   dist: bionic
+    #   addons:
+    #     snaps:
+    #       - name: microk8s
+    #         confinement: classic # or devmode
+    #         channel: latest/stable # will be passed to --channel flag
+    #   language: python
+    #   python: 3.7
+    #   before_install:
+    #     - pip3 install virtualenv
+    #     - virtualenv -p $(which python3) ~venvpy3
+    #     - source ~venvpy3/bin/activate
+    #     - pip install -r requirements.txt
+    #   script:
+    #     - sudo make deploy-microk8s
+    #     - sudo make deploy-ebpf
+    #   after_success:
+    #     - deactivate
 
-      #dashboard: disabled ?
-    - name: "dashboard wo RBAC microk8s w snap Python 3.7 on bionic"
-      dist: bionic
-      addons:
-        snaps:
-          - name: microk8s
-            confinement: classic # or devmode
-            channel: latest/stable # will be passed to --channel flag
-      language: python
-      python: 3.7
-      before_install:
-        - pip3 install virtualenv
-        - virtualenv -p $(which python3) ~venvpy3
-        - source ~venvpy3/bin/activate
-        - pip install -r requirements.txt
-      script:
-        - sudo make deploy-microk8s
-        - sudo make deploy-dashboard
-      after_success:
-        - deactivate
+    # - name: "ebpf testing microk8s w snap Python 3.7 on bionic"
+    #   dist: bionic
+    #   addons:
+    #     snaps:
+    #       - name: microk8s
+    #         confinement: classic # or devmode
+    #         channel: latest/stable # will be passed to --channel flag
+    #   language: python
+    #   python: 3.7
+    #   before_install:
+    #     - pip3 install virtualenv
+    #     - virtualenv -p $(which python3) ~venvpy3
+    #     - source ~venvpy3/bin/activate
+    #     - pip install -r requirements.txt
+    #   script:
+    #     - sudo make deploy-microk8s
+    #     - sudo make deploy-ebpf
+    #   after_success:
+    #     - deactivate
+
+    # - name: "kubeflow addon microk8s w snap Python 3.7 on bionic"
+    #   dist: bionic
+    #   addons:
+    #     snaps:
+    #       - name: microk8s
+    #         confinement: classic # or devmode
+    #         channel: latest/stable # will be passed to --channel flag
+    #   language: python
+    #   python: 3.7
+    #   before_install:
+    #     - pip3 install virtualenv
+    #     - virtualenv -p $(which python3) ~venvpy3
+    #     - source ~venvpy3/bin/activate
+    #     - pip install -r requirements.txt
+    #   script:
+    #     - sudo make deploy-microk8s
+    #     - sudo make deploy-kubeflow
+    #   after_success:
+    #     - deactivate
+
+    #   #dashboard: disabled ?
+    # - name: "dashboard wo RBAC microk8s w snap Python 3.7 on bionic"
+    #   dist: bionic
+    #   addons:
+    #     snaps:
+    #       - name: microk8s
+    #         confinement: classic # or devmode
+    #         channel: latest/stable # will be passed to --channel flag
+    #   language: python
+    #   python: 3.7
+    #   before_install:
+    #     - pip3 install virtualenv
+    #     - virtualenv -p $(which python3) ~venvpy3
+    #     - source ~venvpy3/bin/activate
+    #     - pip install -r requirements.txt
+    #   script:
+    #     - sudo make deploy-microk8s
+    #     - sudo make deploy-dashboard
+    #   after_success:
+    #     - deactivate
 
 
 
-    - name: "juju microk8s w snap Python 3.7 on bionic"
-      dist: bionic
-      addons:
-        snaps:
-          - name: microk8s
-            confinement: classic # or devmode
-            channel: latest/stable # will be passed to --channel flag
-      language: python
-      python: 3.7
-      before_install:
-        - pip3 install virtualenv
-        - virtualenv -p $(which python3) ~venvpy3
-        - source ~venvpy3/bin/activate
-        - pip install -r requirements.txt
-      script:
-        - sudo make deploy-microk8s
-        - sudo make deploy-juju
-      after_success:
-        - deactivate
+    # - name: "juju microk8s w snap Python 3.7 on bionic"
+    #   dist: bionic
+    #   addons:
+    #     snaps:
+    #       - name: microk8s
+    #         confinement: classic # or devmode
+    #         channel: latest/stable # will be passed to --channel flag
+    #   language: python
+    #   python: 3.7
+    #   before_install:
+    #     - pip3 install virtualenv
+    #     - virtualenv -p $(which python3) ~venvpy3
+    #     - source ~venvpy3/bin/activate
+    #     - pip install -r requirements.txt
+    #   script:
+    #     - sudo make deploy-microk8s
+    #     - sudo make deploy-juju
+    #   after_success:
+    #     - deactivate
 
-      # ingress: disabled?
-    - name: "ingress microk8s w snap Python 3.7 on bionic"
-      dist: bionic
-      addons:
-        snaps:
-          - name: microk8s
-            confinement: classic # or devmode
-            channel: latest/stable # will be passed to --channel flag
-      language: python
-      python: 3.7
-      before_install:
-        - pip3 install virtualenv
-        - virtualenv -p $(which python3) ~venvpy3
-        - source ~venvpy3/bin/activate
-        - pip install -r requirements.txt
-      script:
-        - sudo make deploy-microk8s
-        - sudo make deploy-ingress
-      after_success:
-        - deactivate
+    #   # ingress: disabled?
+    # - name: "ingress microk8s w snap Python 3.7 on bionic"
+    #   dist: bionic
+    #   addons:
+    #     snaps:
+    #       - name: microk8s
+    #         confinement: classic # or devmode
+    #         channel: latest/stable # will be passed to --channel flag
+    #   language: python
+    #   python: 3.7
+    #   before_install:
+    #     - pip3 install virtualenv
+    #     - virtualenv -p $(which python3) ~venvpy3
+    #     - source ~venvpy3/bin/activate
+    #     - pip install -r requirements.txt
+    #   script:
+    #     - sudo make deploy-microk8s
+    #     - sudo make deploy-ingress
+    #   after_success:
+    #     - deactivate
 
-      # rbac: enabled dashboard: disabled?
-    - name: "dashboard w RBAC microk8s w snap Python 3.7 on bionic"
-      dist: bionic
-      addons:
-        snaps:
-          - name: microk8s
-            confinement: classic # or devmode
-            channel: latest/stable # will be passed to --channel flag
-      language: python
-      python: 3.7
-      before_install:
-        - pip3 install virtualenv
-        - virtualenv -p $(which python3) ~venvpy3
-        - source ~venvpy3/bin/activate
-        - pip install -r requirements.txt
-      script:
-        - sudo make deploy-microk8s
-        - sudo make deploy-dashboard-rbac
-      after_success:
-        - deactivate
+    #   # rbac: enabled dashboard: disabled?
+    # - name: "dashboard w RBAC microk8s w snap Python 3.7 on bionic"
+    #   dist: bionic
+    #   addons:
+    #     snaps:
+    #       - name: microk8s
+    #         confinement: classic # or devmode
+    #         channel: latest/stable # will be passed to --channel flag
+    #   language: python
+    #   python: 3.7
+    #   before_install:
+    #     - pip3 install virtualenv
+    #     - virtualenv -p $(which python3) ~venvpy3
+    #     - source ~venvpy3/bin/activate
+    #     - pip install -r requirements.txt
+    #   script:
+    #     - sudo make deploy-microk8s
+    #     - sudo make deploy-dashboard-rbac
+    #   after_success:
+    #     - deactivate
 
 #====================TESTED BEGINS========================================================
     #   # jaeger: enabled

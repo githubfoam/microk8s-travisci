@@ -1,6 +1,9 @@
 IMAGE := alpine/fio
 APP:="app/deploy-openesb.sh"
 
+deploy-chaosmesh:
+	bash app/deploy-chaosmesh.sh
+	
 deploy-ebpf:
 	bash app/deploy-ebpf.sh
 deploy-kubeflow:
