@@ -1,8 +1,17 @@
 # microk8s-travisci
 microk8s pipeline
 
-Travis (.com) dev branch:
+Travis (.com)   branch:
 [![Build Status](https://travis-ci.com/githubfoam/microk8s-travisci.svg?branch=master)](https://travis-ci.com/githubfoam/microk8s-travisci)  
+
+Travis (.com) feature_serverless branch:
+[![Build Status](https://travis-ci.com/githubfoam/microk8s-travisci.svg?branch=feature_serverless)](https://travis-ci.com/githubfoam/microk8s-travisci) 
+
+Travis (.com)  feature_prometheus  branch:
+[![Build Status](https://travis-ci.com/githubfoam/microk8s-travisci.svg?branch=feature_prometheus)](https://travis-ci.com/githubfoam/microk8s-travisci) 
+
+Travis (.com)  feature_-jaeger  branch:
+[![Build Status](https://travis-ci.com/githubfoam/microk8s-travisci.svg?branch=feature_-jaeger)](https://travis-ci.com/githubfoam/microk8s-travisci) 
 
 ~~~~
 MicroK8s Addons
