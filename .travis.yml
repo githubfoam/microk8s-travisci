@@ -11,6 +11,74 @@ matrix:
   include:
 
 #====================STILL TESTING BEGINS========================================================
+    # https://github.com/Coalfire-Research/Red-Baron
+    - name: "Red-Baron Python 3.7 on bionic"
+      dist: bionic
+      addons:
+        snaps:
+          - name: microk8s
+            confinement: classic # or devmode
+            channel: latest/stable # will be passed to --channel flag
+      language: python
+      python: 3.7
+      before_install:
+        - pip3 install virtualenv
+        - virtualenv -p $(which python3) ~venvpy3
+        - source ~venvpy3/bin/activate
+        - pip install -r requirements.txt        
+      script:
+        - git clone https://github.com/byt3bl33d3r/Red-Baron && cd Red-Baron
+        - cp examples/complete_c2.tf .
+        - terraform init
+        - terraform plan
+        - terraform apply
+      after_success:
+        - deactivate
+
+
+    # https://github.com/stevenaldinger/decker.git
+    - name: "decker. Python 3.7 on bionic"
+      dist: bionic
+      addons:
+        snaps:
+          - name: microk8s
+            confinement: classic # or devmode
+            channel: latest/stable # will be passed to --channel flag
+      language: python
+      python: 3.7
+      before_install:
+        - pip3 install virtualenv
+        - virtualenv -p $(which python3) ~venvpy3
+        - source ~venvpy3/bin/activate
+        - pip install -r requirements.txt        
+      script:
+        - git clone https://github.com/stevenaldinger/decker.git
+        - sudo make docker_build
+        - sudo make docker_run
+      after_success:
+        - deactivate
+
+    # https://github.com/rmikehodges/hideNsneak
+    - name: "hideNsneak. Python 3.7 on bionic"
+      dist: bionic
+      addons:
+        snaps:
+          - name: microk8s
+            confinement: classic # or devmode
+            channel: latest/stable # will be passed to --channel flag
+      language: python
+      python: 3.7
+      before_install:
+        - pip3 install virtualenv
+        - virtualenv -p $(which python3) ~venvpy3
+        - source ~venvpy3/bin/activate
+        - pip install -r requirements.txt        
+      script:
+        - git clone https://github.com/rmikehodges/hideNsneak.git
+        - ./setup.sh
+        - go build -o hideNsneak main.go
+      after_success:
+        - deactivate
 
     # https://github.com/khast3x/Redcloud
     - name: "Redcloud Python 3.7 on bionic"
