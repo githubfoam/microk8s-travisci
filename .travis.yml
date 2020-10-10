@@ -10,6 +10,203 @@ matrix:
   fast_finish: true
   include:
 
+#====================Gherkin Cucumber BDD Selenium Gradlew ========================================================
+
+    # https://github.com/AndreasAugustin/Gherkin-Demos-cpp.git
+    - name: "Ruby Gherkin Cucumber Demo Python 3.7 on bionic"
+      dist: bionic
+      services:
+        - docker
+      addons:
+        snaps:
+          - name: microk8s
+            confinement: classic # or devmode
+            channel: latest/stable # will be passed to --channel flag
+      language: ruby
+      # python: 3.7
+      before_install:
+        - pip3 install virtualenv
+        - virtualenv -p $(which python3) ~venvpy3
+        - source ~venvpy3/bin/activate
+        - pip install -r requirements.txt        
+      script:
+        - git clone https://github.com/AndreasAugustin/Gherkin-Demos-cpp.git
+        - cd cpp && mkdir build && cd build
+        - cmake ..
+        - make
+        - cd devel/lib/soundex/test && ./FeatureShowcaseSteps &
+      after_success:
+        - deactivate
+
+    # https://github.com/AndreasAugustin/Gherkin-Demos-ruby.git
+    - name: "Ruby Gherkin Cucumber Demo Python 3.7 on bionic"
+      dist: bionic
+      services:
+        - docker
+      addons:
+        snaps:
+          - name: microk8s
+            confinement: classic # or devmode
+            channel: latest/stable # will be passed to --channel flag
+      language: ruby
+      # python: 3.7
+      before_install:
+        - pip3 install virtualenv
+        - virtualenv -p $(which python3) ~venvpy3
+        - source ~venvpy3/bin/activate
+        - pip install -r requirements.txt        
+      script:
+        - git clone https://github.com/AndreasAugustin/Gherkin-Demos-ruby.git
+        - cd Gherkin-Demos-ruby && bundle
+        - cd ruby/tests/ && cucumber
+      after_success:
+        - deactivate
+
+    # https://github.com/AndreasAugustin/Gherkin-Demos-java.git
+    - name: "Java Gherkin Demo Python 3.7 on bionic"
+      dist: bionic
+      services:
+        - docker
+      addons:
+        snaps:
+          - name: microk8s
+            confinement: classic # or devmode
+            channel: latest/stable # will be passed to --channel flag
+      language: python
+      python: 3.7
+      before_install:
+        - pip3 install virtualenv
+        - virtualenv -p $(which python3) ~venvpy3
+        - source ~venvpy3/bin/activate
+        - pip install -r requirements.txt        
+      script:
+        - git clone https://github.com/AndreasAugustin/Gherkin-Demos-java.git
+        - cd java && mvn test
+      after_success:
+        - deactivate
+
+    # https://github.com/viktorolesn/api-testing-demo.git
+    - name: "JAPI-testing using Maven, TestNG, Cucumber and Gherkin Python 3.7 on bionic"
+      dist: bionic
+      services:
+        - docker
+      addons:
+        snaps:
+          - name: microk8s
+            confinement: classic # or devmode
+            channel: latest/stable # will be passed to --channel flag
+      language: python
+      python: 3.7
+      before_install:
+        - pip3 install virtualenv
+        - virtualenv -p $(which python3) ~venvpy3
+        - source ~venvpy3/bin/activate
+        - pip install -r requirements.txt        
+      script:
+        - git clone https://github.com/viktorolesn/api-testing-demo.git
+        - cd api-testing-demo && mvn test
+      after_success:
+        - deactivate
+
+    # https://github.com/bullboa/cucumber-for-java-demo.git
+    - name: "Java Maven Cucumber Gherkin Python 3.7 on bionic"
+      dist: bionic
+      services:
+        - docker
+      addons:
+        snaps:
+          - name: microk8s
+            confinement: classic # or devmode
+            channel: latest/stable # will be passed to --channel flag
+      language: python
+      python: 3.7
+      before_install:
+        - pip3 install virtualenv
+        - virtualenv -p $(which python3) ~venvpy3
+        - source ~venvpy3/bin/activate
+        - pip install -r requirements.txt        
+      script:
+        - git clone https://github.com/bullboa/cucumber-for-java-demo.git
+        - cd cucumber-for-java-demo && mvn test
+      after_success:
+        - deactivate
+
+    # https://github.com/acmthinks/hellocuke.git
+    - name: "Java Maven Cucumber Gherkin Python 3.7 on bionic"
+      dist: bionic
+      services:
+        - docker
+      addons:
+        snaps:
+          - name: microk8s
+            confinement: classic # or devmode
+            channel: latest/stable # will be passed to --channel flag
+      language: python
+      python: 3.7
+      before_install:
+        - pip3 install virtualenv
+        - virtualenv -p $(which python3) ~venvpy3
+        - source ~venvpy3/bin/activate
+        - pip install -r requirements.txt        
+      script:
+        - git clone https://github.com/acmthinks/hellocuke.git
+        - cd hellocuke && mvn test
+      after_success:
+        - deactivate
+
+
+    # https://github.com/AndreasAugustin/Gherkin-Demos-python.git
+    - name: "Python Gherkin Demo Python 3.7 on bionic"
+      dist: bionic
+      services:
+        - docker
+      addons:
+        snaps:
+          - name: microk8s
+            confinement: classic # or devmode
+            channel: latest/stable # will be passed to --channel flag
+      language: python
+      python: 3.7
+      before_install:
+        - pip3 install virtualenv
+        - virtualenv -p $(which python3) ~venvpy3
+        - source ~venvpy3/bin/activate
+        - pip install -r requirements.txt        
+      script:
+        - git clone https://github.com/AndreasAugustin/Gherkin-Demos-python.git
+        - cd Gherkin-Demos-python && pip install -r requirements.txt
+        - behave ./test/features/
+      after_success:
+        - deactivate
+
+    # https://github.com/7ep/demo.git
+    - name: " Gherkin Cucumber BDD Python 3.7 on bionic"
+      dist: bionic
+      services:
+        - docker
+      addons:
+        snaps:
+          - name: microk8s
+            confinement: classic # or devmode
+            channel: latest/stable # will be passed to --channel flag
+      language: python
+      python: 3.7
+      before_install:
+        - pip3 install virtualenv
+        - virtualenv -p $(which python3) ~venvpy3
+        - source ~venvpy3/bin/activate
+        - pip install -r requirements.txt        
+      script:
+        - git clone https://github.com/7ep/demo.git
+        - javac -version
+        - echo $PATH
+        - ./gradlew check
+        - ./gradlew apprun
+        - curl http://localhost:8080/demo
+        - ./gradlew runAllTests
+      after_success:
+        - deactivate
+
 #====================Gradle Maven Builds========================================================
     # https://github.com/DanySK/Gravis-CI.git
     - name: "Installing Python on bionic"
