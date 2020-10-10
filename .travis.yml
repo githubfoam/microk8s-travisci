@@ -12,8 +12,15 @@ matrix:
 
 #====================STILL TESTING BEGINS========================================================
 
+    # https://github.com/obscuritylabs/RAI
     - name: "chaos mesh  w snapped microk8s Python 3.7 on bionic"
       dist: bionic
+      services:
+        - docker
+      env:
+        global:
+          - USERNAME_TAG=obscuritylabs
+          - ASE_BASEIMAGE_TAG=ase
       addons:
         snaps:
           - name: microk8s
@@ -25,12 +32,33 @@ matrix:
         - pip3 install virtualenv
         - virtualenv -p $(which python3) ~venvpy3
         - source ~venvpy3/bin/activate
-        - pip install -r requirements.txt
+        - pip install -r requirements.txt        
       script:
-        - sudo make deploy-microk8s
-        - sudo make deploy-chaosmesh
+        - sudo apt-get install build-essential
+        - git clone https://github.com/obscuritylabs/RAI.git
+        - cd ase_docker && docker-compose build --parallel
       after_success:
         - deactivate
+
+    # - name: "chaos mesh  w snapped microk8s Python 3.7 on bionic"
+    #   dist: bionic
+    #   addons:
+    #     snaps:
+    #       - name: microk8s
+    #         confinement: classic # or devmode
+    #         channel: latest/stable # will be passed to --channel flag
+    #   language: python
+    #   python: 3.7
+    #   before_install:
+    #     - pip3 install virtualenv
+    #     - virtualenv -p $(which python3) ~venvpy3
+    #     - source ~venvpy3/bin/activate
+    #     - pip install -r requirements.txt
+    #   script:
+    #     - sudo make deploy-microk8s
+    #     - sudo make deploy-chaosmesh
+    #   after_success:
+    #     - deactivate
 
     # - name: "jenkins configuration as code microk8s w snap Python 3.7 on bionic"
     #   dist: bionic
