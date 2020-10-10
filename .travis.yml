@@ -12,8 +12,35 @@ matrix:
 
 #====================STILL TESTING BEGINS========================================================
 
+    # https://github.com/khast3x/Redcloud
+    - name: "Redcloud Python 3.7 on bionic"
+      dist: bionic
+      services:
+        - docker
+      env:
+        global:
+          - USERNAME_TAG=obscuritylabs
+          - ASE_BASEIMAGE_TAG=ase
+      addons:
+        snaps:
+          - name: microk8s
+            confinement: classic # or devmode
+            channel: latest/stable # will be passed to --channel flag
+      language: python
+      python: 3.7
+      before_install:
+        - pip3 install virtualenv
+        - virtualenv -p $(which python3) ~venvpy3
+        - source ~venvpy3/bin/activate
+        - pip install -r requirements.txt        
+      script:
+        - git clone https://github.com/khast3x/redcloud.git
+        - cd redcloud && python redcloud.py
+      after_success:
+        - deactivate
+
     # https://github.com/obscuritylabs/RAI
-    - name: "chaos mesh  w snapped microk8s Python 3.7 on bionic"
+    - name: "RAI Python 3.7 on bionic"
       dist: bionic
       services:
         - docker
