@@ -10,7 +10,87 @@ matrix:
   fast_finish: true
   include:
 
+#====================Protractor E2E ========================================================
+
+    # https://github.com/jimCresswell/cucumber-with-protractor-demo.git
+    - name: "Protractor E2E Cucumber BDD Gherkin DSL on bionic"
+      dist: bionic
+      services:
+        - docker
+      addons:
+        snaps:
+          - name: microk8s
+            confinement: classic # or devmode
+            channel: latest/stable # will be passed to --channel flag
+      language: ruby
+      # python: 3.7
+      before_install:
+        - pip3 install virtualenv
+        - virtualenv -p $(which python3) ~venvpy3
+        - source ~venvpy3/bin/activate
+        - pip install -r requirements.txt        
+      script:
+        - git https://github.com/jimCresswell/cucumber-with-protractor-demo.git
+        - cd cucumber-with-protractor-demo && npm install
+        - node server.js && curl http://localhost:3000/app/index.html.
+        - npm install -g gulp
+        - npm install -g karma-cli
+      after_success:
+        - deactivate
+
 #====================Gherkin Cucumber BDD Selenium Gradlew ========================================================
+
+    # https://github.com/narottamgla/selenium-cucumber4-demo.git
+    - name: "Selenium WebDriver Cucumber BDD Serenity BDD on bionic"
+      dist: bionic
+      services:
+        - docker
+      addons:
+        snaps:
+          - name: microk8s
+            confinement: classic # or devmode
+            channel: latest/stable # will be passed to --channel flag
+      language: ruby
+      # python: 3.7
+      before_install:
+        - pip3 install virtualenv
+        - virtualenv -p $(which python3) ~venvpy3
+        - source ~venvpy3/bin/activate
+        - pip install -r requirements.txt        
+      script:
+        - git clone https://github.com/narottamgla/selenium-cucumber4-demo
+        - cd selenium-cucumber4-demo
+        - CucumberTestSuite
+        - mvn verify
+        - gradle test
+        - mvn clean verify -Ddriver=firefox #By default, the tests will run using Chrome
+        - gradle clean test -Pdriver=firefox
+        - mvn clean verify -Denvironment=staging
+      after_success:
+        - deactivate
+
+    # https://github.com/viktorolesn/automation-practice-demo.git
+    - name: "Java, Selenium WebDriver Maven TestNG Cucumber BDD Gherkin DSL on bionic"
+      dist: bionic
+      services:
+        - docker
+      addons:
+        snaps:
+          - name: microk8s
+            confinement: classic # or devmode
+            channel: latest/stable # will be passed to --channel flag
+      language: ruby
+      # python: 3.7
+      before_install:
+        - pip3 install virtualenv
+        - virtualenv -p $(which python3) ~venvpy3
+        - source ~venvpy3/bin/activate
+        - pip install -r requirements.txt        
+      script:
+        - git clone https://github.com/viktorolesn/automation-practice-demo.git
+        - cd automation-practice-demo && mvn test
+      after_success:
+        - deactivate
 
     # https://github.com/AndreasAugustin/Gherkin-Demos-cpp.git
     - name: "Ruby Gherkin Cucumber Demo Python 3.7 on bionic"
