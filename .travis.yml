@@ -10,7 +10,243 @@ matrix:
   fast_finish: true
   include:
 
-#====================STILL TESTING BEGINS========================================================
+#====================Gradle Maven Builds========================================================
+    # https://github.com/DanySK/Gravis-CI.git
+    - name: "Installing Python on bionic"
+      dist: bionic
+      env:
+        global:
+          # Convenience variables for shortening commands
+          - GRAVIS_REPO="https://github.com/DanySK/Gravis-CI.git"
+          - GRAVIS="$HOME/gravis"
+        matrix:
+        # List any Python version you want to run with
+        - PYTHON="2.7.0"
+        - PYTHON="3.6.0"
+        # Partial matches allowed: pick the last matching
+        - PYTHON="3"
+        # Latest stable
+        - PYTHON=""
+      # services:
+      #   - docker
+      # addons:
+      #   snaps:
+      #     - name: microk8s
+      #       confinement: classic # or devmode
+      #       channel: latest/stable # will be passed to --channel flag
+      language: python
+      python: 3.7
+      before_install:
+        - pip3 install virtualenv
+        - virtualenv -p $(which python3) ~venvpy3
+        - source ~venvpy3/bin/activate
+        - pip install -r requirements.txt  
+        - travis_retry git clone --depth 1 $GRAVIS_REPO $GRAVIS      
+        - source $GRAVIS/install-python
+      before_cache: #Better Gradle caching
+        - $GRAVIS/clean-gradle-cache        
+      cache:
+        directories:
+          - $HOME/.gradle/caches/
+          - $HOME/.gradle/wrapper/
+          #Caching the JDK
+          # This avoids re-downloading the JDK every time, but Travis recommends not to do it
+          - $HOME/.jabba/
+      # script:
+        # - git clone https://github.com/superkojiman/pwnbox.git
+        # - docker pull superkojiman/pwnbox
+        # - ./run.sh defcon
+        # - ./run.sh 
+      after_success:
+        - deactivate
+
+
+    # https://github.com/DanySK/Gravis-CI.git
+    - name: " Installing Apache Maven  Python 3.7 on bionic"
+      dist: bionic
+      env:
+        global:
+          # Convenience variables for shortening commands
+          - GRAVIS_REPO="https://github.com/DanySK/Gravis-CI.git"
+          - GRAVIS="$HOME/gravis"
+        matrix:
+        - MAVEN_VERSION="3.6.3"
+        - MAVEN_VERSION="3.6.0"
+      # services:
+      #   - docker
+      # addons:
+      #   snaps:
+      #     - name: microk8s
+      #       confinement: classic # or devmode
+      #       channel: latest/stable # will be passed to --channel flag
+      language: python
+      python: 3.7
+      before_install:
+        - pip3 install virtualenv
+        - virtualenv -p $(which python3) ~venvpy3
+        - source ~venvpy3/bin/activate
+        - pip install -r requirements.txt  
+        - travis_retry git clone --depth 1 $GRAVIS_REPO $GRAVIS      
+        - source $GRAVIS/install-jdk
+        - source $GRAVIS/install-maven
+      before_cache: #Better Gradle caching
+        - $GRAVIS/clean-gradle-cache        
+      cache:
+        directories:
+          - $HOME/.gradle/caches/
+          - $HOME/.gradle/wrapper/
+          #Caching the JDK
+          # This avoids re-downloading the JDK every time, but Travis recommends not to do it
+          - $HOME/.jabba/
+      # script:
+        # - git clone https://github.com/superkojiman/pwnbox.git
+        # - docker pull superkojiman/pwnbox
+        # - ./run.sh defcon
+        # - ./run.sh 
+      after_success:
+        - deactivate
+
+
+    # https://github.com/DanySK/Gravis-CI.git
+    - name: " Installing the JDK  Python 3.7 on bionic"
+      dist: bionic
+      env:
+        global:
+          # Convenience variables for shortening commands
+          - GRAVIS_REPO="https://github.com/DanySK/Gravis-CI.git"
+          - GRAVIS="$HOME/gravis"
+        matrix:
+        - JDK="adopt@1.8.212-04"
+        - JDK="adopt-openj9@1.11
+      # services:
+      #   - docker
+      # addons:
+      #   snaps:
+      #     - name: microk8s
+      #       confinement: classic # or devmode
+      #       channel: latest/stable # will be passed to --channel flag
+      language: python
+      python: 3.7
+      before_install:
+        - pip3 install virtualenv
+        - virtualenv -p $(which python3) ~venvpy3
+        - source ~venvpy3/bin/activate
+        - pip install -r requirements.txt  
+        - travis_retry git clone --depth 1 $GRAVIS_REPO $GRAVIS      
+        - source $GRAVIS/install-jdk
+      before_cache: #Better Gradle caching
+        - $GRAVIS/clean-gradle-cache
+      cache:
+        directories:
+          - $HOME/.gradle/caches/
+          - $HOME/.gradle/wrapper/
+          #Caching the JDK
+          # This avoids re-downloading the JDK every time, but Travis recommends not to do it
+          - $HOME/.jabba/
+      # script:
+        # - git clone https://github.com/superkojiman/pwnbox.git
+        # - docker pull superkojiman/pwnbox
+        # - ./run.sh defcon
+        # - ./run.sh 
+      after_success:
+        - deactivate
+
+#====================Binary Reversing========================================================
+    # https://github.com/superkojiman/pwnbox.git
+    - name: " pwnbox Python 3.7 on bionic"
+      dist: bionic
+      services:
+        - docker
+      addons:
+        snaps:
+          - name: microk8s
+            confinement: classic # or devmode
+            channel: latest/stable # will be passed to --channel flag
+      language: python
+      python: 3.7
+      before_install:
+        - pip3 install virtualenv
+        - virtualenv -p $(which python3) ~venvpy3
+        - source ~venvpy3/bin/activate
+        - pip install -r requirements.txt        
+      script:
+        - git clone https://github.com/superkojiman/pwnbox.git
+        - docker pull superkojiman/pwnbox
+        - ./run.sh defcon
+        - ./run.sh 
+      after_success:
+        - deactivate
+
+    # https://github.com/programa-stic/barf-project.git
+    - name: " BARF Binary Analysis and Reverse engineering Framework Python 3.7 on bionic"
+      dist: bionic
+      addons:
+        snaps:
+          - name: microk8s
+            confinement: classic # or devmode
+            channel: latest/stable # will be passed to --channel flag
+      language: python
+      python: 3.7
+      before_install:
+        - pip3 install virtualenv
+        - virtualenv -p $(which python3) ~venvpy3
+        - source ~venvpy3/bin/activate
+        - pip install -r requirements.txt        
+      script:
+        - git clone https://github.com/programa-stic/barf-project.git
+        - sudo python setup.py install
+      after_success:
+        - deactivate
+
+#====================Source Code Auditing========================================================
+
+    # https://github.com/WhaleShark-Team/cobra.git
+    - name: "cobra Python 3.7 on bionic"
+      dist: bionic
+      addons:
+        snaps:
+          - name: microk8s
+            confinement: classic # or devmode
+            channel: latest/stable # will be passed to --channel flag
+      language: python
+      python: 3.7
+      before_install:
+        - pip3 install virtualenv
+        - virtualenv -p $(which python3) ~venvpy3
+        - source ~venvpy3/bin/activate
+        - pip install -r requirements.txt        
+      script:
+        - git clone https://github.com/WhaleShark-Team/cobra.git
+        - cd cobra && pip install -r requirements.txt
+        - ./cobra.py --help
+        - ./cobra.py -t tests/vulnerabilities
+      after_success:
+        - deactivate
+
+
+    # https://github.com/wireghoul/graudit
+    - name: "grep rough audit Python 3.7 on bionic"
+      dist: bionic
+      addons:
+        snaps:
+          - name: microk8s
+            confinement: classic # or devmode
+            channel: latest/stable # will be passed to --channel flag
+      language: python
+      python: 3.7
+      before_install:
+        - pip3 install virtualenv
+        - virtualenv -p $(which python3) ~venvpy3
+        - source ~venvpy3/bin/activate
+        - pip install -r requirements.txt        
+      script:
+        - git clone https://github.com/wireghoul/graudit
+        - ln -s ~/graudit/graudit ~/bin/graudit #symlink graudit  in the path
+        - graudit -A
+      after_success:
+        - deactivate
+        
+#====================automated infrastructure========================================================
     # https://github.com/Coalfire-Research/Red-Baron
     - name: "Red-Baron Python 3.7 on bionic"
       dist: bionic
