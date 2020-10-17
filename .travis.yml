@@ -3,15 +3,18 @@ language: c
 os:
   - osx
 osx_image:
-  - xcode11.5
-  - xcode11.4
-  - xcode11.3
-  - xcode11.2
-  - xcode11.1
-  - xcode11
-  - xcode10
-  - xcode9.4
-  - xcode9
+  - xcode12.2 #macOS 10.15.7
+  # - xcode12u #macOS 10.15.5
+  # - xcode12 #macOS 10.15.7
+  # - xcode11.5
+  # - xcode11.4
+  # - xcode11.3
+  # - xcode11.2
+  # - xcode11.1
+  # - xcode11
+  # - xcode10
+  # - xcode9.4
+  # - xcode9
   # - xcode8 #ImportError: No module named zipp
 addons:
  homebrew:
