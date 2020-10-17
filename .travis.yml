@@ -1,6 +1,7 @@
 language: c
 os:
   - linux
+  - osx
 dist: # not both at the same time.
   # - focal
   - bionic
