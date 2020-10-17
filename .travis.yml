@@ -11,7 +11,27 @@ matrix:
   include:
 
 
-    - name: "Elasticsearch-Fluentd-Kibana microk8s w snap Python 3.7 on bionic"
+    - name: "Elasticsearch-Fluentd-Kibana (ELF) microk8s w snap Python 3.7 on focal"
+      dist: focal
+      addons:
+        snaps:
+          - name: microk8s
+            confinement: classic # or devmode
+            channel: latest/stable # will be passed to --channel flag
+      language: python
+      python: 3.7
+      before_install:
+        - pip3 install virtualenv
+        - virtualenv -p $(which python3) ~venvpy3
+        - source ~venvpy3/bin/activate
+        - pip install -r requirements.txt
+      script:
+        - sudo make deploy-microk8s
+        - sudo make deploy-fluentd
+      after_success:
+        - deactivate
+
+    - name: "Elasticsearch-Fluentd-Kibana (ELF) microk8s w snap Python 3.7 on bionic"
       dist: bionic
       addons:
         snaps:
