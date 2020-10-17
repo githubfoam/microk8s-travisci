@@ -2,7 +2,7 @@ language: c
 os:
   - linux
 dist: # not both at the same time.
-  - focal
+  # - focal
   - bionic
   # - xenial
 arch:
