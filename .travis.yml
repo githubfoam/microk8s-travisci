@@ -10,7 +10,217 @@ matrix:
   fast_finish: true
   include:
 
+#====================Jenkins Gerrit ========================================================
+    
+    # https://github.com/atteo/jfactory.git
+    - name: "Gerrit, Jenkins, Nexus   on bionic"
+      dist: bionic
+      services:
+        - docker
+      addons:
+        snaps:
+          - name: microk8s
+            confinement: classic # or devmode
+            channel: latest/stable # will be passed to --channel flag
+      language: ruby
+      # python: 3.7
+      before_install:
+        - pip3 install virtualenv
+        - virtualenv -p $(which python3) ~venvpy3
+        - source ~venvpy3/bin/activate
+        - pip install -r requirements.txt        
+      script:
+        - git clone https://github.com/atteo/jfactory-starter
+        - ./setup.sh
+      after_success:
+        - deactivate
+
+    # https://github.com/openfrontier/docker-jenkins.git
+    - name: "Jenkins Gerrit  on bionic"
+      dist: bionic
+      services:
+        - docker
+      addons:
+        snaps:
+          - name: microk8s
+            confinement: classic # or devmode
+            channel: latest/stable # will be passed to --channel flag
+      language: ruby
+      # python: 3.7
+      before_install:
+        - pip3 install virtualenv
+        - virtualenv -p $(which python3) ~venvpy3
+        - source ~venvpy3/bin/activate
+        - pip install -r requirements.txt        
+      script:
+        - docker volume create jenkins-home
+        - |
+          docker run \
+          -e JAVA_OPTS="t-Duser.timezone=Asia/Shanghai -Djenkins.install.runSetupWizard=false -Xms2048m -Xmx3584" \
+          -e JENKINS_OPTS=--prefix=/jenkins \
+          -e ROOT_URL=http://your.jenkins.example.com/jenkins/ \
+          -v jenkins-home:/var/jenkins_home \
+          -p 8080:8080 \
+          -p 50000:50000 \
+          -d openfrontier/jenkins 
+      after_success:
+        - deactivate
+
+
+#====================Gitlab-runner ========================================================
+
+    # https://github.com/liatrio/demo-deployment-pipeline.git
+    - name: "Gitlab-runner  on bionic"
+      dist: bionic
+      services:
+        - docker
+      addons:
+        snaps:
+          - name: microk8s
+            confinement: classic # or devmode
+            channel: latest/stable # will be passed to --channel flag
+      language: ruby
+      # python: 3.7
+      before_install:
+        - pip3 install virtualenv
+        - virtualenv -p $(which python3) ~venvpy3
+        - source ~venvpy3/bin/activate
+        - pip install -r requirements.txt        
+      script:
+        - git clone https://github.com/rjgallac/gitlab-runners-demo-app.git && cd gitlab-runners-demo-app
+        - |
+          docker run --detach
+          --hostname gitlab.example.com
+          --publish 443:443 --publish 80:80 --publish 22:22
+          --name gitlab
+          --restart always
+          --volume /srv/gitlab/config:/etc/gitlab
+          --volume /srv/gitlab/logs:/var/log/gitlab
+          --volume /srv/gitlab/data:/var/opt/gitlab
+          gitlab/gitlab-ce:latest
+        - sudo apt-get install -yyq gitlab-runner
+        - gitlab-runner register 
+        #add gitlb.example.com to hosts file        
+        # add this to your toml if you want docker to find your gitlab. 
+        # replace with your IP address.
+        # extra_hosts = ["gitlab.example.com:192.168.1.10"]ö
+      after_success:
+        - deactivate
+
+
+#====================Sonarqube ========================================================
+
+    # https://github.com/liatrio/demo-deployment-pipeline.git
+    - name: "Jenkins Nexus SonarQube  on bionic"
+      dist: bionic
+      services:
+        - docker
+      addons:
+        snaps:
+          - name: microk8s
+            confinement: classic # or devmode
+            channel: latest/stable # will be passed to --channel flag
+      language: ruby
+      # python: 3.7
+      before_install:
+        - pip3 install virtualenv
+        - virtualenv -p $(which python3) ~venvpy3
+        - source ~venvpy3/bin/activate
+        - pip install -r requirements.txt        
+      script:
+        - git clone https://github.com/liatrio/demo-deployment-pipeline.git
+        - cd demo-deployment-pipeline && docker-compose up --build
+        - curl http://localhost
+        - git clone https://github.com/manee2k6/SonarQubeDemo.git
+        - cd SonarQubeDemo && mvn clean install sonar:sonar
+      after_success:
+        - deactivate
+
+    # https://github.com/carloselpapa10/sonarqube-demo.git
+    - name: "Sonarqube  on bionic"
+      dist: bionic
+      services:
+        - docker
+      addons:
+        snaps:
+          - name: microk8s
+            confinement: classic # or devmode
+            channel: latest/stable # will be passed to --channel flag
+      language: ruby
+      # python: 3.7
+      before_install:
+        - pip3 install virtualenv
+        - virtualenv -p $(which python3) ~venvpy3
+        - source ~venvpy3/bin/activate
+        - pip install -r requirements.txt        
+      script:
+        - docker run -d --name sonarqube -p 9000:9000 sonarqube
+      after_success:
+        - deactivate
+
+
 #====================Protractor E2E ========================================================
+
+    # https://github.com/xgirma/protractor-cucumber-demo.git
+    - name: "Protractor E2E Cucumber BDD Gherkin DSL on bionic"
+      dist: bionic
+      services:
+        - docker
+      addons:
+        snaps:
+          - name: microk8s
+            confinement: classic # or devmode
+            channel: latest/stable # will be passed to --channel flag
+      language: ruby
+      # python: 3.7
+      before_install:
+        - pip3 install virtualenv
+        - virtualenv -p $(which python3) ~venvpy3
+        - source ~venvpy3/bin/activate
+        - pip install -r requirements.txt        
+      script:
+        - git clone https://github.com/xgirma/protractor-cucumber-demo.git
+        - cd protractor-cucumber-demo 
+        - npm install
+        - npm wd
+        - npm test 
+      after_success:
+        - deactivate
+
+    # https://github.com/yosoyvilla/protractor-cucumber-gherkin.git
+    - name: "Protractor E2E Cucumber BDD Gherkin DSL on bionic"
+      dist: bionic
+      services:
+        - docker
+      addons:
+        snaps:
+          - name: microk8s
+            confinement: classic # or devmode
+            channel: latest/stable # will be passed to --channel flag
+      language: ruby
+      # python: 3.7
+      before_install:
+        - pip3 install virtualenv
+        - virtualenv -p $(which python3) ~venvpy3
+        - source ~venvpy3/bin/activate
+        - pip install -r requirements.txt        
+      script:
+        - git clone https://github.com/yosoyvilla/protractor-cucumber-gherkin.git
+        - cd protractor-cucumber-gherkin 
+        #Install json validator
+        - npm install -g is-my-json-valid --force && npm install is-my-json-valid --save-dev --force
+        #Install better a npm runner
+        - npm install -g better-npm-run --force && npm install better-npm-run --save-dev --force
+        #Install Node-Pre-GYP
+        - npm install -g node-pre-gyp && npm install -save--dev node-pre-gyp
+        # install the repo with npm 
+        - npm install
+        # start the server 
+        - npm start 
+        # run the tests ( this will both run the E2E & unit tests ) 
+        - npm run e2e
+      after_success:
+        - deactivate
 
     # https://github.com/jimCresswell/cucumber-with-protractor-demo.git
     - name: "Protractor E2E Cucumber BDD Gherkin DSL on bionic"
@@ -30,7 +240,7 @@ matrix:
         - source ~venvpy3/bin/activate
         - pip install -r requirements.txt        
       script:
-        - git https://github.com/jimCresswell/cucumber-with-protractor-demo.git
+        - git clone https://github.com/jimCresswell/cucumber-with-protractor-demo.git
         - cd cucumber-with-protractor-demo && npm install
         - node server.js && curl http://localhost:3000/app/index.html.
         - npm install -g gulp
