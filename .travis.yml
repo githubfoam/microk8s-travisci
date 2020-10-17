@@ -10,7 +10,7 @@ matrix:
   fast_finish: true
   include:
 
-    - name: "linkerd service mesh  womicrok8s snap on focal"
+    - name: "linkerd service mesh  w microk8s snap on focal"
       dist: focal
       addons:
         snaps:
@@ -30,48 +30,28 @@ matrix:
         - deactivate
 
 
-    - name: "linkerd service mesh  wo microk8s snap  on focal"
-      dist: focal
-      language: python
-      # python: 3.7
-      before_install:
-        - pip3 install virtualenv
-        - virtualenv -p $(which python3) ~venvpy3
-        - source ~venvpy3/bin/activate
-        - pip install -r requirements.txt
-      script:
-        - sudo make deploy-linkerd
-      after_success:
-        - deactivate
-
-
-    - name: "linkerd service mesh  womicrok8s snap Python 3.7 on bionic"
-      dist: bionic
-      addons:
-        snaps:
-          - name: microk8s
-            confinement: classic
-            channel: latest/stable
-      language: python
-      python: 3.7
-      before_install:
-        - pip3 install virtualenv
-        - virtualenv -p $(which python3) ~venvpy3
-        - source ~venvpy3/bin/activate
-        - pip install -r requirements.txt
-      script:
-        - sudo make deploy-linkerd
-      after_success:
-        - deactivate
+    # - name: "linkerd service mesh  wo microk8s snap  on focal"
+    #   dist: focal
+    #   language: python
+    #   # python: 3.7
+    #   before_install:
+    #     - pip3 install virtualenv
+    #     - virtualenv -p $(which python3) ~venvpy3
+    #     - source ~venvpy3/bin/activate
+    #     - pip install -r requirements.txt
+    #   script:
+    #     - sudo make deploy-linkerd
+    #   after_success:
+    #     - deactivate
 
 
     - name: "linkerd service mesh  wo microk8s snap Python 3.7 on bionic"
       dist: bionic
-      # addons:
-      #   snaps:
-      #     - name: microk8s
-      #       confinement: classic
-      #       channel: latest/stable
+      addons:
+        snaps:
+          - name: microk8s
+            confinement: classic
+            channel: latest/stable
       language: python
       python: 3.7
       before_install:
@@ -80,7 +60,27 @@ matrix:
         - source ~venvpy3/bin/activate
         - pip install -r requirements.txt
       script:
-        - sudo make deploy-microk8s
         - sudo make deploy-linkerd
       after_success:
         - deactivate
+
+
+    # - name: "linkerd service mesh  wo microk8s snap Python 3.7 on bionic"
+    #   dist: bionic
+    #   # addons:
+    #   #   snaps:
+    #   #     - name: microk8s
+    #   #       confinement: classic
+    #   #       channel: latest/stable
+    #   language: python
+    #   python: 3.7
+    #   before_install:
+    #     - pip3 install virtualenv
+    #     - virtualenv -p $(which python3) ~venvpy3
+    #     - source ~venvpy3/bin/activate
+    #     - pip install -r requirements.txt
+    #   script:
+    #     - sudo make deploy-microk8s
+    #     - sudo make deploy-linkerd
+    #   after_success:
+    #     - deactivate
