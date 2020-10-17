@@ -24,12 +24,21 @@ before_install:
     pip3 install virtualenv
     virtualenv -p $(which python3) ~venvpy3
     source ~venvpy3/bin/activate
+    snap install microk8s --classic
+    microk8s kubectl get all --all-namespaces
+    microk8s enable dashboard dns registry istio
+    microk8s kubectl get all --all-namespaces
     fi
   - | #Python 3.7.5
     if [ "$TRAVIS_OS_NAME" = "osx" ]; then
     pip3 install virtualenv
     virtualenv -p $(which python3) ~venvpy3
     source ~venvpy3/bin/activate
+    brew install ubuntu/microk8s/microk8s
+    microk8s install
+    microk8s kubectl get all --all-namespaces
+    microk8s enable dashboard dns registry istio
+    microk8s kubectl get all --all-namespaces
     fi
   - | #Python 3.8
     if [ "$TRAVIS_OS_NAME" = "windows" ]; then
