@@ -19,6 +19,7 @@ addons:
   - mactex
   packages:
   - multipass
+  - microk8s
 
 env:
   global:
@@ -42,8 +43,9 @@ before_install: #Python 2.7.17
 <<: *fleet_install_tasks
 <<: *fleet_script_tasks
 
+# https://microk8s.io/#tab-three__content
 script:
-  - brew list --versions
-
+  # - brew install ubuntu/microk8s/microk8s
+  - microk8s install
 after_success:
   - deactivate
