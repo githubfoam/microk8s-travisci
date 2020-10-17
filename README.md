@@ -10,8 +10,32 @@ Travis (.com) feature_serverless branch:
 Travis (.com)  feature_prometheus  branch:
 [![Build Status](https://travis-ci.com/githubfoam/microk8s-travisci.svg?branch=feature_prometheus)](https://travis-ci.com/githubfoam/microk8s-travisci) 
 
-Travis (.com)  feature_-jaeger  branch:
-[![Build Status](https://travis-ci.com/githubfoam/microk8s-travisci.svg?branch=feature_-jaeger)](https://travis-ci.com/githubfoam/microk8s-travisci) 
+Travis (.com)  feature_knative branch:
+[![Build Status](https://travis-ci.com/githubfoam/microk8s-travisci.svg?branch=feature_knative)](https://travis-ci.com/githubfoam/microk8s-travisci) 
+
+Travis (.com)  feature_dashboard branch:
+[![Build Status](https://travis-ci.com/githubfoam/microk8s-travisci.svg?branch=feature_dashboard)](https://travis-ci.com/githubfoam/microk8s-travisci) 
+
+Travis (.com)   feature_jaeger  branch:
+[![Build Status](https://travis-ci.com/githubfoam/microk8s-travisci.svg?branch=feature_jaeger)](https://travis-ci.com/githubfoam/microk8s-travisci) 
+
+Travis (.com)   feature_cilium  branch:
+[![Build Status](https://travis-ci.com/githubfoam/microk8s-travisci.svg?branch=feature_cilium)](https://travis-ci.com/githubfoam/microk8s-travisci) 
+
+Travis (.com)   feature_istio  branch:
+[![Build Status](https://travis-ci.com/githubfoam/microk8s-travisci.svg?branch=feature_istio)](https://travis-ci.com/githubfoam/microk8s-travisci)
+
+Travis (.com)   feature_linkerd  branch:
+[![Build Status](https://travis-ci.com/githubfoam/microk8s-travisci.svg?branch=feature_linkerd)](https://travis-ci.com/githubfoam/microk8s-travisci)
+
+Travis (.com)   feature_fluentd  branch:
+[![Build Status](https://travis-ci.com/githubfoam/microk8s-travisci.svg?branch=feature_juju)](https://travis-ci.com/githubfoam/microk8s-travisci)
+
+Travis (.com)   macos  branch:
+[![Build Status](https://travis-ci.com/githubfoam/microk8s-travisci.svg?branch=macos)](https://travis-ci.com/githubfoam/microk8s-travisci)
+
+Travis (.com)   linux  branch:
+[![Build Status](https://travis-ci.com/githubfoam/microk8s-travisci.svg?branch=linux)](https://travis-ci.com/githubfoam/microk8s-travisci)
 
 ~~~~
 MicroK8s Addons
