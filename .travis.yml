@@ -4,18 +4,18 @@ os:
   - osx
 osx_image:
   - xcode12.2 #macOS 10.15.7
-  # - xcode12u #macOS 10.15.5
-  # - xcode12 #macOS 10.15.7
-  # - xcode11.5
-  # - xcode11.4
-  # - xcode11.3
-  # - xcode11.2
-  # - xcode11.1
-  # - xcode11
-  # - xcode10
-  # - xcode9.4
-  # - xcode9
-  # - xcode8 #ImportError: No module named zipp
+  - xcode12u #macOS 10.15.5
+  - xcode12 #macOS 10.15.7
+  - xcode11.5
+  - xcode11.4
+  - xcode11.3
+  - xcode11.2
+  - xcode11.1
+  - xcode11
+  - xcode10
+  - xcode9.4
+  - xcode9
+  - xcode8 #ImportError: No module named zipp
 addons:
  homebrew:
   casks:
@@ -51,6 +51,6 @@ before_install: #Python 2.7.17
 # https://microk8s.io/#tab-three__content
 script:
   - brew install ubuntu/microk8s/microk8s
-  - microk8s install
+  # - microk8s install #Support for 'multipass' needs to be set up. Would you like to do that it now? [y/N]:
 after_success:
   - deactivate
