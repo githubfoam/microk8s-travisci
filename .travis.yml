@@ -8,8 +8,8 @@ dist: # only one distro is allowed
 arch:
   - amd64
   - arm64
-  - ppc64le
-  - s390x
+  # - ppc64le #Setup snap "core" (10129) security profiles (cannot setup udev for snap "core": cannot reload udev rules: exit status 2
+  # - s390x #error: snap "microk8s" is not available on edge for this architecture (s390x)
 compiler:
   - gcc
   - clang
