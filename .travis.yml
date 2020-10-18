@@ -24,6 +24,8 @@ addons:
 
 before_install:
   # - sudo snap install microk8s --classic --channel=latest/edge
-  - sudo microk8s enable dashboard dns registry istio
+  # from server for: "/var/snap/microk8s/1763/actions/istio/istio-demo.yaml": Get "https://127.0.0.1:16443/apis/networking.istio.io/v1alpha3/namespaces/istio-system/destinationrules/istio-telemetry": dial tcp 127.0.0.1:16443: connect: connection refused
+  # - sudo microk8s enable dashboard dns registry istio
+  - sudo microk8s enable dashboard dns registry
 script:
   - microk8s kubectl get all --all-namespaces
