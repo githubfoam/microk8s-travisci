@@ -1,16 +1,16 @@
 language: c
 os:
   - linux
-dist: # not both at the same time.
+dist: # only one distro is allowed
   # - focal
   - bionic
   # - xenial
 arch:
   - amd64
-  # - arm64
-  # - ppc64le
-  # - s390x
-compiler:
+#   # - arm64
+#   # - ppc64le
+#   # - s390x
+# compiler:
   - gcc
   - clang
 addons:
@@ -28,4 +28,4 @@ before_install:
   # - sudo microk8s enable dashboard dns registry istio
   - sudo microk8s enable dashboard dns registry
 script:
-  - microk8s kubectl get all --all-namespaces
+  - sudo microk8s kubectl get all --all-namespaces
