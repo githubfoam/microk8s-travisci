@@ -24,7 +24,7 @@ before_install:
     # pip3 install virtualenv
     # virtualenv -p $(which python3) ~venvpy3
     # source ~venvpy3/bin/activate
-    snap install microk8s --classic
+    sudo snap install microk8s --classic
     # microk8s kubectl get all --all-namespaces
     # microk8s enable dashboard dns registry istio
     # microk8s kubectl get all --all-namespaces
