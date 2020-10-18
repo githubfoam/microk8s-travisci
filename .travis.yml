@@ -14,8 +14,8 @@ osx_image:
   - xcode11
   - xcode10
   - xcode9.4
-  - xcode9
-  - xcode8 #ImportError: No module named zipp
+  # - xcode9
+  # - xcode8 #ImportError: No module named zipp
 addons:
  homebrew:
   casks:
