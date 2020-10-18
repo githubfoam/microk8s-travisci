@@ -21,8 +21,10 @@ addons:
   casks:
   - mactex
   packages:
-  - multipass
-  - microk8s
+# nstaller: Error - Your CPU does not have the features necessary for Multipass. Installation cannot proceed.  
+  # - multipass
+# Warning: 'microk8s' formula is unreadable: No available formula with the name "microk8s"   
+  # - microk8s
 
 env:
   global:
@@ -48,7 +50,7 @@ before_install: #Python 2.7.17
 
 # https://microk8s.io/#tab-three__content
 script:
-  # - brew install ubuntu/microk8s/microk8s
+  - brew install ubuntu/microk8s/microk8s
   - microk8s install
 after_success:
   - deactivate
