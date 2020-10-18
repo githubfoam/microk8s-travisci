@@ -37,6 +37,9 @@ Travis (.com)   macos  branch:
 Travis (.com)   linux  branch:
 [![Build Status](https://travis-ci.com/githubfoam/microk8s-travisci.svg?branch=linux)](https://travis-ci.com/githubfoam/microk8s-travisci)
 
+Travis (.com)   linux macos windows  branch:
+[![Build Status](https://travis-ci.com/githubfoam/microk8s-travisci.svg?branch=maclinwin)](https://travis-ci.com/githubfoam/microk8s-travisci)
+
 ~~~~
 MicroK8s Addons
 
